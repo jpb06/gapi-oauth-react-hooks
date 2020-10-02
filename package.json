@@ -1,0 +1,25 @@
+{
+  "name": "gapi-oauth-react-hooks",
+  "version": "1.0.3",
+  "repository": "https://github.com/jpb06/gapi-oauth-react-hooks.git",
+  "author": "jpb06 <jpb.06@outlook.com>",
+  "license": "MIT",
+  "description": "Some hooks for SSO using Google sign in",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/gapi": "^0.0.39",
+    "@types/gapi.auth2": "^0.0.52",
+    "@types/node": "^14.11.2",
+    "@types/react": "^16.9.50",
+    "copyfiles": "^2.4.0",
+    "del-cli": "^3.0.1",
+    "react": "^16.13.1",
+    "typescript": "^4.0.3"
+  },
+  "scripts": {
+    "build": "del-cli ./dist && tsc",
+    "copy-package": "copyfiles package.json ./dist/",
+    "copy-readme": "copyfiles README.md ./dist/",
+    "package-publish": "yarn build && yarn copy-package && yarn copy-readme && cd ./dist && yarn publish"
+  }
+}
