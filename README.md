@@ -22,7 +22,7 @@ npm i gapi-oauth-react-hooks
 
 It's best to setup the config early, perhaps in the index or app file:
 
-```js
+```Typescript
 import { GapiConfig } from "gapi-oauth-react-hooks";
 
 // pulling from .env here
@@ -37,23 +37,32 @@ ReactDOM.render(<Login />, document.getElementById("root"));
 
 Now, let's use the hook in the Login component:
 
-```js
+```Typescript
 import { useGapiLogin, GapiState } from "gapi-oauth-react-hooks";
 
-export const Login: React.FC = () => {
+interface SignedInProps {
+  user: gapi.auth2.BasicProfile | undefined;
+  onSignOut: () => Promise<void>;
+}
+
+const SignedIn: React.FC<SignedInProps> = ({ user, onSignOut }) => (
+  <>
+    <div>user {JSON.stringify(user)}</div>
+    <SimpleButton onClick={onSignOut} text="Logout" />
+  </>
+);
+
+export const Login = () => {
   const [state, user, handleSignIn, handleSignOut] = useGapiLogin();
 
-  if (state === GapiState.Loading)
-    return <div>Well, gapi is being loaded...</div>;
-  if (state === GapiState.SignedIn)
-    return (
-      <>
-        <div>user {JSON.stringify(user)}</div>
-        <SimpleButton onClick={handleSignOut} text="Logout" />
-      </>
-    );
+  const display = {
+    Loading: <>Well, gapi is being loaded...</>,
+    SignedIn: <SignedIn user={user} onSignOut={handleSignOut} />,
+    NotSignedIn: <SimpleButton onClick={handleSignIn} text="Login" />,
+    Errored: <>Oh no!</>,
+  };
 
-  return <SimpleButton onClick={handleSignIn} text="Login" />;
+  return <>{display[state]}</>;
 };
 ```
 
@@ -91,6 +100,10 @@ The package exposes its own declaration files; you won't need to install an @typ
 
 ## Log
 
+- 1.0.7 : Improving example in readme.
+- 1.0.6 : Moving type GapiState to its own file.
+- 1.0.5 : Exporting type GapiState.
+- 1.0.4 : Removing the GapiState enum; replacing it with a type to simplify rendering in react components.
 - 1.0.3 : Misc: readme alterations.
 - 1.0.2 : It's es5 we want to publish... Yes.
 - 1.0.1 : Fixing typos.
