@@ -1,10 +1,10 @@
-import { GapiState, useGapiLoading } from "./use.gapi.loading.hook";
+import { useGapiLoading } from "./use.gapi.loading.hook";
 
 export const useGapiLogin = () => {
   const [gapiState, signedUser, setSignedUser, setGapiState] = useGapiLoading();
 
   const handleGoogleSignIn = async () => {
-    if (gapiState !== GapiState.NotSignedIn)
+    if (gapiState !== "NotSignedIn")
       throw new Error("gapi is not ready for sign in");
 
     try {
@@ -12,15 +12,15 @@ export const useGapiLogin = () => {
 
       const user = await authInstance.signIn({ prompt: "consent" });
       setSignedUser(user.getBasicProfile());
-      setGapiState(GapiState.SignedIn);
+      setGapiState("SignedIn");
     } catch (err) {
       console.log("gapi login error:", err);
-      setGapiState(GapiState.Errored);
+      setGapiState("Errored");
     }
   };
 
   const handleGoogleSignout = async () => {
-    if (gapiState !== GapiState.SignedIn) return;
+    if (gapiState !== "SignedIn") return;
 
     const authInstance = window.gapi.auth2.getAuthInstance();
     await authInstance.signOut();

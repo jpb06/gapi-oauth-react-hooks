@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
 
 import { loadScript, removeScript } from "../logic/resource.loading.logic";
+import { GapiState } from "../types/gapiState";
 import { useGapiConfig } from "./use.gapi.config.hook";
-
-export enum GapiState {
-  Loading,
-  SignedIn,
-  NotSignedIn,
-  Errored,
-}
 
 export const useGapiLoading = () => {
   const config = useGapiConfig();
-  const [state, setState] = useState<GapiState>(GapiState.Loading);
+  const [state, setState] = useState<GapiState>("Loading");
   const [user, setUser] = useState<gapi.auth2.BasicProfile>();
 
   const setSignedInUser = (gapi: gapi.auth2.GoogleAuth, isMounted: boolean) => {
@@ -20,9 +14,9 @@ export const useGapiLoading = () => {
 
     if (gapi.isSignedIn.get()) {
       setUser(gapi.currentUser.get().getBasicProfile());
-      setState(GapiState.SignedIn);
+      setState("SignedIn");
     } else {
-      setState(GapiState.NotSignedIn);
+      setState("NotSignedIn");
     }
   };
 
@@ -39,7 +33,7 @@ export const useGapiLoading = () => {
           if (!GoogleAuth) {
             window.gapi.auth2.init(config).then(
               (res) => setSignedInUser(res, isMounted),
-              (err) => setState(GapiState.Errored)
+              (err) => setState("Errored")
             );
           } else {
             setSignedInUser(GoogleAuth, isMounted);
