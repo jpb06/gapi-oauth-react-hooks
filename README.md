@@ -8,9 +8,14 @@ Uh yea... That's a mouthfull.
 
 I needed SSO for google users and wasn't quite satisfied with what I found in the react eco system. Perhaps this will be useful for someone else, so here we go.
 
+## Requirements
+
+- react >= 16.8
+- typescript >= 3.8
+
 ## Installation
 
-First of, this will only work for react > 16.8 since it uses hooks. To install, use either yarn or npm:
+To install, use either yarn or npm:
 
 ```bash
 yarn add gapi-oauth-react-hooks
