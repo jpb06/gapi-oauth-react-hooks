@@ -5,7 +5,8 @@
 ## Purpose
 
 I needed SSO for google users and wasn't quite satisfied with what I found in the react eco system. Perhaps this will be useful for someone else, so here we go.
-The package exposes its own declaration files; you won't need to install an @types/\* if you use typescript.
+
+The package exposes its own declaration files; you won't need to install any @types/\* if you use typescript.
 
 ## Requirements
 
@@ -66,7 +67,7 @@ export const Login = () => {
   const display = {
     Loading: <>Well, gapi is being loaded...</>,
     SignedIn: <SignedIn user={signedUser} authResponse={authResponse} onSignOut={handleSignOut} />,
-    NotSignedIn: <SimpleButton onClick={handleSignIn} text="Login" />,
+    NotSignedIn: <SimpleButton onClick={handleGoogleSignIn} text="Login" />,
     Errored: <>Oh no!</>,
   };
 
@@ -107,6 +108,7 @@ This hook returns an object containing:
 
 ## Log
 
+- 1.1.1 : Fixing misc typos in readme.
 - 1.1.0 : Returning auth response from the main hook.
 - 1.0.9 : Fixing a GapiState import.
 - 1.0.8 : Adding tests coverage.
