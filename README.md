@@ -48,12 +48,12 @@ Now, let's use the main hook in our Login component:
 import { useGapiLogin } from "gapi-oauth-react-hooks";
 
 interface SignedInProps {
-  user: gapi.auth2.BasicProfile | undefined;
-  authResponse: gapi.auth2.AuthResponse | undefined;
   onSignOut: () => Promise<void>;
+  user?: gapi.auth2.BasicProfile;
+  authResponse?: gapi.auth2.AuthResponse;
 }
 
-const SignedIn: React.FC<SignedInProps> = ({ user, authResponse, onSignOut }) => (
+const SignedIn: React.FC<SignedInProps> = ({ onSignOut, user, authResponse }) => (
   <>
     <div>user {JSON.stringify(user)}</div>
     <div>auth response {JSON.stringify(authResponse)}</div>
@@ -62,7 +62,13 @@ const SignedIn: React.FC<SignedInProps> = ({ user, authResponse, onSignOut }) =>
 );
 
 export const Login = () => {
-  const {state, signedUser, authResponse, handleGoogleSignIn, handleGoogleSignout} = useGapiLogin();
+  const {
+    state,
+    signedUser,
+    authResponse,
+    handleGoogleSignIn,
+    handleGoogleSignout
+  } = useGapiLogin();
 
   const display = {
     Loading: <>Well, gapi is being loaded...</>,
