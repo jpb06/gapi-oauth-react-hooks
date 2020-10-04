@@ -1,5 +1,5 @@
-import { GapiState } from "../";
 import { gapiGetAuth2Instance } from "../indirection/gapi.lib.indirection";
+import { GapiState } from "../types/gapiState";
 import { useGapiLoading } from "./use.gapi.loading.hook";
 
 interface UseGapiLoginProps {
