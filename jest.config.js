@@ -1,6 +1,5 @@
 module.exports = {
    preset: "ts-jest",
-   setupFilesAfterEnv: ["./setupTests.ts"],
    coverageReporters: [
       "json-summary",
       "text",
