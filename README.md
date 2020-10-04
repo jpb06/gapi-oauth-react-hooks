@@ -11,7 +11,7 @@ The package exposes its own declaration files; you won't need to install any @ty
 ## Requirements
 
 - react >= 16.8
-- typescript >= 3.8
+- typescript >= 3.8 (if using ts).
 
 ## Installation
 
@@ -47,20 +47,6 @@ Now, let's use the main hook in our Login component:
 ```Typescript
 import { useGapiLogin } from "gapi-oauth-react-hooks";
 
-interface SignedInProps {
-  onSignOut: () => Promise<void>;
-  user?: gapi.auth2.BasicProfile;
-  authResponse?: gapi.auth2.AuthResponse;
-}
-
-const SignedIn: React.FC<SignedInProps> = ({ onSignOut, user, authResponse }) => (
-  <>
-    <div>user {JSON.stringify(user)}</div>
-    <div>auth response {JSON.stringify(authResponse)}</div>
-    <SimpleButton onClick={onSignOut} text="Logout" />
-  </>
-);
-
 export const Login = () => {
   const {
     state,
@@ -79,6 +65,20 @@ export const Login = () => {
 
   return <>{display[state]}</>;
 };
+
+interface SignedInProps {
+  onSignOut: () => Promise<void>;
+  user?: gapi.auth2.BasicProfile;
+  authResponse?: gapi.auth2.AuthResponse;
+}
+
+const SignedIn: React.FC<SignedInProps> = ({ onSignOut, user, authResponse }) => (
+  <>
+    <div>user {JSON.stringify(user)}</div>
+    <div>auth response {JSON.stringify(authResponse)}</div>
+    <SimpleButton onClick={onSignOut} text="Logout" />
+  </>
+);
 ```
 
 ## Api
@@ -114,6 +114,7 @@ This hook returns an object containing:
 
 ## Log
 
+- 1.1.3 : Minor readme improvements.
 - 1.1.2 : Using 'On' prefix convention for outgoing events.
 - 1.1.1 : Fixing misc typos in readme.
 - 1.1.0 : Returning auth response from the main hook.
