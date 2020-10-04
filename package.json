@@ -1,25 +1,44 @@
 {
   "name": "gapi-oauth-react-hooks",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "repository": "https://github.com/jpb06/gapi-oauth-react-hooks.git",
   "author": "jpb06 <jpb.06@outlook.com>",
   "license": "MIT",
   "description": "Some hooks for SSO using Google sign in",
   "dependencies": {},
   "devDependencies": {
+    "@testing-library/dom": "^7.24.3",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.0.4",
+    "@testing-library/react-hooks": "^3.4.2",
+    "@testing-library/user-event": "^12.1.7",
     "@types/gapi": "^0.0.39",
     "@types/gapi.auth2": "^0.0.52",
+    "@types/jest": "^26.0.14",
+    "@types/jsdom": "^16.2.4",
     "@types/node": "^14.11.2",
     "@types/react": "^16.9.50",
     "copyfiles": "^2.4.0",
     "del-cli": "^3.0.1",
+    "jest": "^26.4.2",
+    "jest-coverage-badges": "^1.1.2",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
+    "jsdom": "^16.4.0",
     "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-test-renderer": "^16.13.1",
+    "ts-jest": "^26.4.1",
     "typescript": "^4.0.3"
   },
   "scripts": {
     "build": "del-cli ./dist && tsc",
     "copy-package": "copyfiles package.json ./dist/",
     "copy-readme": "copyfiles README.md ./dist/",
-    "package-publish": "yarn build && yarn copy-package && yarn copy-readme && cd ./dist && yarn publish"
+    "copy-badges": "copyfiles ./badges/* ./dist/",
+    "test": "jest ---watch",
+    "test:cov": "jest --coverage --watchAll",
+    "test:silentcov": "jest --coverage --silent --runInBand --watchAll=false",
+    "test:badges": "yarn test:silentcov  && jest-coverage-badges --output ./badges",
+    "package-publish": "yarn test:badges && yarn copy-badges && yarn build && yarn copy-package && yarn copy-readme && cd ./dist && yarn publish"
   }
 }
