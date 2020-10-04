@@ -4,6 +4,7 @@ import { act, renderHook } from "@testing-library/react-hooks";
 
 import { gapiAuth2Init, gapiGetAuth2Instance, gapiLoad } from "../indirection/gapi.lib.indirection";
 import { loadScript, removeScript } from "../logic/resource.loading.logic";
+import { mockedAuthResponse } from "../tests-related/mocks/data/mocked.auth.response.data";
 import { mockedUser } from "../tests-related/mocks/data/mocked.user.data";
 import { mockGoogleAuth } from "../tests-related/mocks/gapi/auth2.google.auth.mock";
 import { useGapiLoading } from "./use.gapi.loading.hook";
@@ -21,6 +22,7 @@ describe("useGapiLoading hook", () => {
 
     expect(result.current.state).toBe("Loading");
     expect(result.current.signedUser).toBeUndefined();
+    expect(result.current.authResponse).toBeUndefined();
   });
 
   it("should call loadScript once", () => {
@@ -53,6 +55,7 @@ describe("useGapiLoading hook", () => {
     expect(mocked(gapiAuth2Init)).toHaveBeenCalledTimes(1);
 
     expect(result.current.signedUser).toBeUndefined();
+    expect(result.current.authResponse).toBeUndefined();
   });
 
   it("should initialize auth2 and set the current user if he is signed in", () => {
@@ -61,7 +64,7 @@ describe("useGapiLoading hook", () => {
     );
     mocked(gapiLoad).mockImplementationOnce((name, callback) => callback());
     mocked(gapiGetAuth2Instance).mockImplementationOnce(() =>
-      mockGoogleAuth(true, mockedUser)
+      mockGoogleAuth(true, mockedUser, mockedAuthResponse)
     );
 
     const { result } = renderHook(() => useGapiLoading());
@@ -81,6 +84,7 @@ describe("useGapiLoading hook", () => {
     );
     expect(result.current.signedUser?.getName()).toBe(mockedUser.name);
     expect(result.current.signedUser?.getImageUrl()).toBe(mockedUser.imageUrl);
+    expect(result.current.authResponse).toMatchObject(mockedAuthResponse);
   });
 
   it("should set the user as not signed in", () => {
@@ -99,6 +103,7 @@ describe("useGapiLoading hook", () => {
 
     expect(result.current.state).toBe("NotSignedIn");
     expect(result.current.signedUser).toBeUndefined();
+    expect(result.current.authResponse).toBeUndefined();
   });
 
   it("should report on errors", () => {
@@ -113,7 +118,7 @@ describe("useGapiLoading hook", () => {
       err();
     };
     mocked(gapiAuth2Init).mockImplementationOnce(() =>
-      mockGoogleAuth(false, undefined, thenFn)
+      mockGoogleAuth(false, undefined, undefined, thenFn)
     );
 
     const { result } = renderHook(() => useGapiLoading());
@@ -124,6 +129,7 @@ describe("useGapiLoading hook", () => {
 
     expect(result.current.state).toBe("Errored");
     expect(result.current.signedUser).toBeUndefined();
+    expect(result.current.authResponse).toBeUndefined();
   });
 
   it("should call setSignedInUser on init", () => {
@@ -135,10 +141,10 @@ describe("useGapiLoading hook", () => {
       () => (null as unknown) as gapi.auth2.GoogleAuth
     );
     const thenFn = (res: any, err: any) => {
-      res(mockGoogleAuth(true, mockedUser));
+      res(mockGoogleAuth(true, mockedUser, mockedAuthResponse));
     };
     mocked(gapiAuth2Init).mockImplementationOnce(() =>
-      mockGoogleAuth(true, mockedUser, thenFn)
+      mockGoogleAuth(true, mockedUser, mockedAuthResponse, thenFn)
     );
 
     const { result } = renderHook(() => useGapiLoading());
@@ -159,5 +165,7 @@ describe("useGapiLoading hook", () => {
     );
     expect(result.current.signedUser?.getName()).toBe(mockedUser.name);
     expect(result.current.signedUser?.getImageUrl()).toBe(mockedUser.imageUrl);
+
+    expect(result.current.authResponse).toMatchObject(mockedAuthResponse);
   });
 });
