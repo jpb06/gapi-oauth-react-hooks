@@ -35,8 +35,8 @@ describe("useGapiLogin hook", () => {
 
     expect(result.current.state).toBe("Loading");
     expect(result.current.signedUser).toBeUndefined();
-    expect(result.current.handleGoogleSignIn).toBeInstanceOf(Function);
-    expect(result.current.handleGoogleSignout).toBeInstanceOf(Function);
+    expect(result.current.onGoogleSignIn).toBeInstanceOf(Function);
+    expect(result.current.onGoogleSignOut).toBeInstanceOf(Function);
   });
 
   it("should throw an error if trying to sign in while gapi is loading", async () => {
@@ -50,7 +50,7 @@ describe("useGapiLogin hook", () => {
     });
     const { result } = renderHook(() => useGapiLogin());
 
-    expect(result.current.handleGoogleSignIn).rejects.toThrowError(
+    expect(result.current.onGoogleSignIn).rejects.toThrowError(
       "gapi is not ready for sign in"
     );
   });
@@ -70,7 +70,7 @@ describe("useGapiLogin hook", () => {
 
     const { result } = renderHook(() => useGapiLogin());
 
-    await result.current.handleGoogleSignIn();
+    await result.current.onGoogleSignIn();
 
     expect(setStateMock).toHaveBeenCalledTimes(1);
     expect(setStateMock).toHaveBeenCalledWith("SignedIn");
@@ -107,7 +107,7 @@ describe("useGapiLogin hook", () => {
 
     const { result } = renderHook(() => useGapiLogin());
 
-    await result.current.handleGoogleSignIn();
+    await result.current.onGoogleSignIn();
 
     expect(setStateMock).toHaveBeenCalledTimes(1);
     expect(setStateMock).toHaveBeenCalledWith("Errored");
@@ -137,7 +137,7 @@ describe("useGapiLogin hook", () => {
 
     const { result } = renderHook(() => useGapiLogin());
 
-    await result.current.handleGoogleSignout();
+    await result.current.onGoogleSignOut();
 
     expect(gapiGetAuth2Instance).toHaveBeenCalledTimes(0);
     expect(signOutMock).toHaveBeenCalledTimes(0);
@@ -168,7 +168,7 @@ describe("useGapiLogin hook", () => {
 
     const { result } = renderHook(() => useGapiLogin());
 
-    await result.current.handleGoogleSignout();
+    await result.current.onGoogleSignOut();
 
     expect(gapiGetAuth2Instance).toHaveBeenCalledTimes(1);
     expect(signOutMock).toHaveBeenCalledTimes(1);

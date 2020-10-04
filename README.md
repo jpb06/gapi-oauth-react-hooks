@@ -66,14 +66,14 @@ export const Login = () => {
     state,
     signedUser,
     authResponse,
-    handleGoogleSignIn,
-    handleGoogleSignout
+    onGoogleSignIn,
+    onGoogleSignOut
   } = useGapiLogin();
 
   const display = {
     Loading: <>Well, gapi is being loaded...</>,
-    SignedIn: <SignedIn user={signedUser} authResponse={authResponse} onSignOut={handleSignOut} />,
-    NotSignedIn: <SimpleButton onClick={handleGoogleSignIn} text="Login" />,
+    SignedIn: <SignedIn user={signedUser} authResponse={authResponse} onSignOut={onGoogleSignOut} />,
+    NotSignedIn: <SimpleButton onClick={onGoogleSignIn} text="Login" />,
     Errored: <>Oh no!</>,
   };
 
@@ -109,11 +109,12 @@ This hook returns an object containing:
 - state : the state of gapi.
 - signedUser : the user signed in, if any.
 - authResponse : the google auth response.
-- handleGoogleSignIn : The signin function.
-- handleGoogleSignout : The signout function.
+- onGoogleSignIn : The signin function.
+- onGoogleSignOut : The signout function.
 
 ## Log
 
+- 1.1.2 : Using 'On' prefix convention for outgoing events.
 - 1.1.1 : Fixing misc typos in readme.
 - 1.1.0 : Returning auth response from the main hook.
 - 1.0.9 : Fixing a GapiState import.

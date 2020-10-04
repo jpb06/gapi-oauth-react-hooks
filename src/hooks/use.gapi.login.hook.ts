@@ -6,8 +6,8 @@ interface UseGapiLoginProps {
   state: GapiState;
   signedUser?: gapi.auth2.BasicProfile;
   authResponse?: gapi.auth2.AuthResponse;
-  handleGoogleSignIn: () => Promise<void>;
-  handleGoogleSignout: () => Promise<void>;
+  onGoogleSignIn: () => Promise<void>;
+  onGoogleSignOut: () => Promise<void>;
 }
 
 export const useGapiLogin = (): UseGapiLoginProps => {
@@ -31,12 +31,12 @@ export const useGapiLogin = (): UseGapiLoginProps => {
       setSignedUser(user.getBasicProfile());
       setState("SignedIn");
     } catch (err) {
-      // console.error("gapi login error:", err);
+      console.error("gapi login error:", err);
       setState("Errored");
     }
   };
 
-  const handleGoogleSignout = async () => {
+  const handleGoogleSignOut = async () => {
     if (state !== "SignedIn") return;
 
     const authInstance = gapiGetAuth2Instance();
@@ -51,7 +51,7 @@ export const useGapiLogin = (): UseGapiLoginProps => {
     state,
     signedUser,
     authResponse,
-    handleGoogleSignIn,
-    handleGoogleSignout,
+    onGoogleSignIn: handleGoogleSignIn,
+    onGoogleSignOut: handleGoogleSignOut,
   };
 };
