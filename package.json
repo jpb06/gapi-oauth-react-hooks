@@ -7,11 +7,7 @@
   "description": "Some hooks for SSO using Google sign in",
   "dependencies": {},
   "devDependencies": {
-    "@testing-library/dom": "^7.24.3",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.0.4",
     "@testing-library/react-hooks": "^3.4.2",
-    "@testing-library/user-event": "^12.1.7",
     "@types/gapi": "^0.0.39",
     "@types/gapi.auth2": "^0.0.52",
     "@types/jest": "^26.0.14",
@@ -22,10 +18,8 @@
     "del-cli": "^3.0.1",
     "jest": "^26.4.2",
     "jest-coverage-badges": "^1.1.2",
-    "jest-environment-jsdom-sixteen": "^1.0.3",
     "jsdom": "^16.4.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "react-test-renderer": "^16.13.1",
     "ts-jest": "^26.4.1",
     "typescript": "^4.0.3"
