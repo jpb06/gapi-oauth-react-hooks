@@ -1,19 +1,27 @@
 import { useEffect, useState } from "react";
 
+import { gapiAuth2Init, gapiGetAuth2Instance, gapiLoad } from "../indirection/gapi.lib.indirection";
 import { loadScript, removeScript } from "../logic/resource.loading.logic";
 import { GapiState } from "../types/gapiState";
 import { useGapiConfig } from "./use.gapi.config.hook";
 
-export const useGapiLoading = () => {
+interface UseGapiLoadingProps {
+  state: GapiState;
+  signedUser?: gapi.auth2.BasicProfile;
+  setState: React.Dispatch<React.SetStateAction<GapiState>>;
+  setSignedUser: React.Dispatch<
+    React.SetStateAction<gapi.auth2.BasicProfile | undefined>
+  >;
+}
+
+export const useGapiLoading = (): UseGapiLoadingProps => {
   const config = useGapiConfig();
   const [state, setState] = useState<GapiState>("Loading");
-  const [user, setUser] = useState<gapi.auth2.BasicProfile>();
+  const [signedUser, setSignedUser] = useState<gapi.auth2.BasicProfile>();
 
-  const setSignedInUser = (gapi: gapi.auth2.GoogleAuth, isMounted: boolean) => {
-    if (!isMounted) return;
-
-    if (gapi.isSignedIn.get()) {
-      setUser(gapi.currentUser.get().getBasicProfile());
+  const setSignedInUser = (auth: gapi.auth2.GoogleAuth) => {
+    if (auth.isSignedIn.get()) {
+      setSignedUser(auth.currentUser.get().getBasicProfile());
       setState("SignedIn");
     } else {
       setState("NotSignedIn");
@@ -21,25 +29,23 @@ export const useGapiLoading = () => {
   };
 
   useEffect(() => {
-    console.log("gapi loading use effect", config);
     let isMounted = true;
     loadScript(
       document,
       "google-login",
       "https://apis.google.com/js/api.js",
-      () => {
-        window.gapi.load("auth2", () => {
-          const GoogleAuth = window.gapi.auth2.getAuthInstance();
+      () =>
+        gapiLoad("auth2", async () => {
+          const GoogleAuth = gapiGetAuth2Instance();
           if (!GoogleAuth) {
-            window.gapi.auth2.init(config).then(
-              (res) => setSignedInUser(res, isMounted),
+            gapiAuth2Init(config).then(
+              (res) => setSignedInUser(res),
               (err) => setState("Errored")
             );
           } else {
-            setSignedInUser(GoogleAuth, isMounted);
+            setSignedInUser(GoogleAuth);
           }
-        });
-      }
+        })
     );
 
     return () => {
@@ -48,5 +54,5 @@ export const useGapiLoading = () => {
     };
   }, [config]);
 
-  return [state, user, setUser, setState] as const;
+  return { state, signedUser, setSignedUser, setState };
 };

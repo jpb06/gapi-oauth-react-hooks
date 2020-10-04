@@ -1,36 +1,45 @@
+import { GapiState } from "../";
+import { gapiGetAuth2Instance } from "../indirection/gapi.lib.indirection";
 import { useGapiLoading } from "./use.gapi.loading.hook";
 
-export const useGapiLogin = () => {
-  const [gapiState, signedUser, setSignedUser, setGapiState] = useGapiLoading();
+interface UseGapiLoginProps {
+  state: GapiState;
+  signedUser?: gapi.auth2.BasicProfile;
+  handleGoogleSignIn: () => Promise<void>;
+  handleGoogleSignout: () => Promise<void>;
+}
+
+export const useGapiLogin = (): UseGapiLoginProps => {
+  const { state, signedUser, setSignedUser, setState } = useGapiLoading();
 
   const handleGoogleSignIn = async () => {
-    if (gapiState !== "NotSignedIn")
+    if (state !== "NotSignedIn")
       throw new Error("gapi is not ready for sign in");
 
     try {
-      const authInstance = window.gapi.auth2.getAuthInstance();
-
+      const authInstance = gapiGetAuth2Instance();
       const user = await authInstance.signIn({ prompt: "consent" });
+
       setSignedUser(user.getBasicProfile());
-      setGapiState("SignedIn");
+      setState("SignedIn");
     } catch (err) {
-      console.log("gapi login error:", err);
-      setGapiState("Errored");
+      // console.error("gapi login error:", err);
+      setState("Errored");
     }
   };
 
   const handleGoogleSignout = async () => {
-    if (gapiState !== "SignedIn") return;
+    if (state !== "SignedIn") return;
 
-    const authInstance = window.gapi.auth2.getAuthInstance();
+    const authInstance = gapiGetAuth2Instance();
     await authInstance.signOut();
     await authInstance.disconnect();
   };
 
-  return [
-    gapiState,
+  return {
+    state,
     signedUser,
     handleGoogleSignIn,
     handleGoogleSignout,
-  ] as const;
+  };
 };
