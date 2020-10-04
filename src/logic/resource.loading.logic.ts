@@ -21,7 +21,7 @@ export const loadScript = (
 export const removeScript = (document: HTMLDocument, id: string) => {
   const element = document.getElementById(id);
 
-  if (element) {
-    element.parentNode?.removeChild(element);
+  if (element && element.parentNode) {
+    element.parentNode.removeChild(element);
   }
 };
