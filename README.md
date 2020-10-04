@@ -37,7 +37,7 @@ GapiConfig.setup(
 ReactDOM.render(<Login />, document.getElementById("root"));
 ```
 
-Now, let's use the hook in the Login component:
+Now, let's use the main hook in our Login component:
 
 ```Typescript
 import { useGapiLogin } from "gapi-oauth-react-hooks";
@@ -102,6 +102,7 @@ The package exposes its own declaration files; you won't need to install an @typ
 
 ## Log
 
+- 1.0.9 : Fixing a GapiState import.
 - 1.0.8 : Adding tests coverage.
 - 1.0.7 : Improving example in readme.
 - 1.0.6 : Moving type GapiState to its own file.
