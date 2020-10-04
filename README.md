@@ -1,12 +1,11 @@
 # gapi-oauth-react-hooks
 
-Uh yea... That's a mouthfull.
-
 ![Statements](./badges/badge-statements.svg) ![Branches](./badges/badge-branches.svg) ![Functions](./badges/badge-functions.svg) ![Lines](./badges/badge-lines.svg)
 
 ## Purpose
 
 I needed SSO for google users and wasn't quite satisfied with what I found in the react eco system. Perhaps this will be useful for someone else, so here we go.
+The package exposes its own declaration files; you won't need to install an @types/\* if you use typescript.
 
 ## Requirements
 
@@ -49,22 +48,24 @@ import { useGapiLogin } from "gapi-oauth-react-hooks";
 
 interface SignedInProps {
   user: gapi.auth2.BasicProfile | undefined;
+  authResponse: gapi.auth2.AuthResponse | undefined;
   onSignOut: () => Promise<void>;
 }
 
-const SignedIn: React.FC<SignedInProps> = ({ user, onSignOut }) => (
+const SignedIn: React.FC<SignedInProps> = ({ user, authResponse, onSignOut }) => (
   <>
     <div>user {JSON.stringify(user)}</div>
+    <div>auth response {JSON.stringify(authResponse)}</div>
     <SimpleButton onClick={onSignOut} text="Logout" />
   </>
 );
 
 export const Login = () => {
-  const {state, signedUser, handleGoogleSignIn, handleGoogleSignout} = useGapiLogin();
+  const {state, signedUser, authResponse, handleGoogleSignIn, handleGoogleSignout} = useGapiLogin();
 
   const display = {
     Loading: <>Well, gapi is being loaded...</>,
-    SignedIn: <SignedIn user={signedUser} onSignOut={handleSignOut} />,
+    SignedIn: <SignedIn user={signedUser} authResponse={authResponse} onSignOut={handleSignOut} />,
     NotSignedIn: <SimpleButton onClick={handleSignIn} text="Login" />,
     Errored: <>Oh no!</>,
   };
@@ -100,13 +101,13 @@ This hook returns an object containing:
 
 - state : the state of gapi.
 - signedUser : the user signed in, if any.
+- authResponse : the google auth response.
 - handleGoogleSignIn : The signin function.
 - handleGoogleSignout : The signout function.
 
-The package exposes its own declaration files; you won't need to install an @types/\* if you use typescript.
-
 ## Log
 
+- 1.1.0 : Returning auth response from the main hook.
 - 1.0.9 : Fixing a GapiState import.
 - 1.0.8 : Adding tests coverage.
 - 1.0.7 : Improving example in readme.
