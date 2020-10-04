@@ -6,9 +6,9 @@ export interface MockUser {
   givenName: string;
   imageUrl: string;
 }
-
 export const mockGapiCurrentUser = (
-  user?: MockUser
+  user?: MockUser,
+  authResponse?: gapi.auth2.AuthResponse
 ): gapi.auth2.CurrentUser => {
   if (!user) return (undefined as unknown) as gapi.auth2.CurrentUser;
 
@@ -22,6 +22,7 @@ export const mockGapiCurrentUser = (
         getGivenName: jest.fn().mockReturnValue(user.givenName),
         getImageUrl: jest.fn().mockReturnValue(user.imageUrl),
       }),
+      getAuthResponse: jest.fn().mockReturnValue(authResponse),
     })),
     listen: jest.fn(),
   };

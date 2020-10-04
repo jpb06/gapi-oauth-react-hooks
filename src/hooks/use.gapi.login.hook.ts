@@ -5,12 +5,20 @@ import { useGapiLoading } from "./use.gapi.loading.hook";
 interface UseGapiLoginProps {
   state: GapiState;
   signedUser?: gapi.auth2.BasicProfile;
+  authResponse?: gapi.auth2.AuthResponse;
   handleGoogleSignIn: () => Promise<void>;
   handleGoogleSignout: () => Promise<void>;
 }
 
 export const useGapiLogin = (): UseGapiLoginProps => {
-  const { state, signedUser, setSignedUser, setState } = useGapiLoading();
+  const {
+    state,
+    signedUser,
+    authResponse,
+    setState,
+    setSignedUser,
+    setAuthResponse,
+  } = useGapiLoading();
 
   const handleGoogleSignIn = async () => {
     if (state !== "NotSignedIn")
@@ -19,7 +27,7 @@ export const useGapiLogin = (): UseGapiLoginProps => {
     try {
       const authInstance = gapiGetAuth2Instance();
       const user = await authInstance.signIn({ prompt: "consent" });
-
+      setAuthResponse(user.getAuthResponse());
       setSignedUser(user.getBasicProfile());
       setState("SignedIn");
     } catch (err) {
@@ -34,11 +42,15 @@ export const useGapiLogin = (): UseGapiLoginProps => {
     const authInstance = gapiGetAuth2Instance();
     await authInstance.signOut();
     await authInstance.disconnect();
+
+    setAuthResponse(undefined);
+    setSignedUser(undefined);
   };
 
   return {
     state,
     signedUser,
+    authResponse,
     handleGoogleSignIn,
     handleGoogleSignout,
   };
