@@ -48,33 +48,27 @@ Now, let's use the main hook in our Login component:
 import { useGoogleAuth } from "gapi-oauth-react-hooks";
 
 export const Login = () => {
-  const {
-    state,
-    signedUser,
-    authResponse,
-    onSignIn,
-    onSignOut
-  } = useGoogleAuth();
+  const auth = useGoogleAuth();
 
   const display = {
-    Loading: <>Well, gapi is being loaded...</>,
-    SignedIn: <SignedIn user={signedUser} authResponse={authResponse} onSignOut={onSignOut} />,
-    NotSignedIn: <SimpleButton onClick={onSignIn} text="Login" />,
     Errored: <>Oh no!</>,
+    Loading: <>Loading ...</>,
+    NotSignedIn: <SimpleButton onClick={auth.onSignIn} text="Login" />,
+    SignedIn: <SignedIn {...auth} />
   };
 
-  return <>{display[state]}</>;
+  return <>{display[auth.state]}</>;
 };
 
 interface SignedInProps {
   onSignOut: () => Promise<void>;
-  user?: gapi.auth2.BasicProfile;
+  signedUser?: gapi.auth2.BasicProfile;
   authResponse?: gapi.auth2.AuthResponse;
 }
 
-const SignedIn: React.FC<SignedInProps> = ({ onSignOut, user, authResponse }) => (
+const SignedIn: React.FC<SignedInProps> = ({ onSignOut, signedUser, authResponse }) => (
   <>
-    <div>user {JSON.stringify(user)}</div>
+    <div>user {JSON.stringify(signedUser)}</div>
     <div>auth response {JSON.stringify(authResponse)}</div>
     <SimpleButton onClick={onSignOut} text="Logout" />
   </>
@@ -114,6 +108,7 @@ This hook returns an object containing:
 
 ## Log
 
+- 2.0.3 : Yet another readme example improvement.
 - 2.0.2 : Typo & missing export in index.
 - 2.0.1 : Exporting the main hook interface.
 - 2.0.0 : Main hook renamed to useGoogleAuth.
