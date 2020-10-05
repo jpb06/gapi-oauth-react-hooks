@@ -8,12 +8,12 @@ import { mockedUser } from "../tests-related/mocks/data/mocked.user.data";
 import { mockGapiCurrentUser } from "../tests-related/mocks/gapi/auth2.current.user.mock";
 import { mockGoogleAuth } from "../tests-related/mocks/gapi/auth2.google.auth.mock";
 import { useGapiLoading } from "./use.gapi.loading.hook";
-import { useGapiLogin } from "./use.gapi.login.hook";
+import { useGoogleAuth } from "./use.google.auth.hook";
 
 jest.mock("./use.gapi.loading.hook");
 jest.mock("../indirection/gapi.lib.indirection");
 
-describe("useGapiLogin hook", () => {
+describe("useGoogleAuth hook", () => {
   const setSignedUserMock = jest.fn();
   const setStateMock = jest.fn();
   const setAuthResponseMock = jest.fn();
@@ -31,12 +31,12 @@ describe("useGapiLogin hook", () => {
       setSignedUser: setSignedUserMock,
       setAuthResponse: setAuthResponseMock,
     });
-    const { result } = renderHook(() => useGapiLogin());
+    const { result } = renderHook(() => useGoogleAuth());
 
     expect(result.current.state).toBe("Loading");
     expect(result.current.signedUser).toBeUndefined();
-    expect(result.current.onGoogleSignIn).toBeInstanceOf(Function);
-    expect(result.current.onGoogleSignOut).toBeInstanceOf(Function);
+    expect(result.current.onSignIn).toBeInstanceOf(Function);
+    expect(result.current.onSignOut).toBeInstanceOf(Function);
   });
 
   it("should throw an error if trying to sign in while gapi is loading", async () => {
@@ -48,9 +48,9 @@ describe("useGapiLogin hook", () => {
       setSignedUser: setSignedUserMock,
       setAuthResponse: setAuthResponseMock,
     });
-    const { result } = renderHook(() => useGapiLogin());
+    const { result } = renderHook(() => useGoogleAuth());
 
-    expect(result.current.onGoogleSignIn).rejects.toThrowError(
+    expect(result.current.onSignIn).rejects.toThrowError(
       "gapi is not ready for sign in"
     );
   });
@@ -68,9 +68,9 @@ describe("useGapiLogin hook", () => {
       mockGoogleAuth(true, mockedUser, mockedAuthResponse)
     );
 
-    const { result } = renderHook(() => useGapiLogin());
+    const { result } = renderHook(() => useGoogleAuth());
 
-    await result.current.onGoogleSignIn();
+    await result.current.onSignIn();
 
     expect(setStateMock).toHaveBeenCalledTimes(1);
     expect(setStateMock).toHaveBeenCalledWith("SignedIn");
@@ -105,9 +105,9 @@ describe("useGapiLogin hook", () => {
       throw new Error("Oh no!");
     });
 
-    const { result } = renderHook(() => useGapiLogin());
+    const { result } = renderHook(() => useGoogleAuth());
 
-    await result.current.onGoogleSignIn();
+    await result.current.onSignIn();
 
     expect(setStateMock).toHaveBeenCalledTimes(1);
     expect(setStateMock).toHaveBeenCalledWith("Errored");
@@ -135,9 +135,9 @@ describe("useGapiLogin hook", () => {
       )
     );
 
-    const { result } = renderHook(() => useGapiLogin());
+    const { result } = renderHook(() => useGoogleAuth());
 
-    await result.current.onGoogleSignOut();
+    await result.current.onSignOut();
 
     expect(gapiGetAuth2Instance).toHaveBeenCalledTimes(0);
     expect(signOutMock).toHaveBeenCalledTimes(0);
@@ -166,9 +166,9 @@ describe("useGapiLogin hook", () => {
       )
     );
 
-    const { result } = renderHook(() => useGapiLogin());
+    const { result } = renderHook(() => useGoogleAuth());
 
-    await result.current.onGoogleSignOut();
+    await result.current.onSignOut();
 
     expect(gapiGetAuth2Instance).toHaveBeenCalledTimes(1);
     expect(signOutMock).toHaveBeenCalledTimes(1);

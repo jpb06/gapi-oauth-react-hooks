@@ -5,7 +5,7 @@ import { loadScript, removeScript } from "../logic/resource.loading.logic";
 import { GapiState } from "../types/gapiState";
 import { useGapiConfig } from "./use.gapi.config.hook";
 
-interface UseGapiLoadingProps {
+interface GapiLoadingHookProps {
   state: GapiState;
   signedUser?: gapi.auth2.BasicProfile;
   authResponse?: gapi.auth2.AuthResponse;
@@ -18,7 +18,7 @@ interface UseGapiLoadingProps {
   >;
 }
 
-export const useGapiLoading = (): UseGapiLoadingProps => {
+export const useGapiLoading = (): GapiLoadingHookProps => {
   const config = useGapiConfig();
   const [state, setState] = useState<GapiState>("Loading");
   const [signedUser, setSignedUser] = useState<gapi.auth2.BasicProfile>();

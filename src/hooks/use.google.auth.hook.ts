@@ -2,15 +2,15 @@ import { gapiGetAuth2Instance } from "../indirection/gapi.lib.indirection";
 import { GapiState } from "../types/gapiState";
 import { useGapiLoading } from "./use.gapi.loading.hook";
 
-interface UseGapiLoginProps {
+export interface GoogleAuthHookProps {
   state: GapiState;
   signedUser?: gapi.auth2.BasicProfile;
   authResponse?: gapi.auth2.AuthResponse;
-  onGoogleSignIn: () => Promise<void>;
-  onGoogleSignOut: () => Promise<void>;
+  onSignIn: () => Promise<void>;
+  onSignOut: () => Promise<void>;
 }
 
-export const useGapiLogin = (): UseGapiLoginProps => {
+export const useGoogleAuth = (): GoogleAuthHookProps => {
   const {
     state,
     signedUser,
@@ -20,7 +20,7 @@ export const useGapiLogin = (): UseGapiLoginProps => {
     setAuthResponse,
   } = useGapiLoading();
 
-  const handleGoogleSignIn = async () => {
+  const handleSignIn = async () => {
     if (state !== "NotSignedIn")
       throw new Error("gapi is not ready for sign in");
 
@@ -36,7 +36,7 @@ export const useGapiLogin = (): UseGapiLoginProps => {
     }
   };
 
-  const handleGoogleSignOut = async () => {
+  const handleSignOut = async () => {
     if (state !== "SignedIn") return;
 
     const authInstance = gapiGetAuth2Instance();
@@ -51,7 +51,7 @@ export const useGapiLogin = (): UseGapiLoginProps => {
     state,
     signedUser,
     authResponse,
-    onGoogleSignIn: handleGoogleSignIn,
-    onGoogleSignOut: handleGoogleSignOut,
+    onSignIn: handleSignIn,
+    onSignOut: handleSignOut,
   };
 };
