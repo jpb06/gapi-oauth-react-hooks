@@ -45,21 +45,21 @@ ReactDOM.render(<Login />, document.getElementById("root"));
 Now, let's use the main hook in our Login component:
 
 ```Typescript
-import { useGapiLogin } from "gapi-oauth-react-hooks";
+import { useGoogleAuth } from "gapi-oauth-react-hooks";
 
 export const Login = () => {
   const {
     state,
     signedUser,
     authResponse,
-    onGoogleSignIn,
-    onGoogleSignOut
-  } = useGapiLogin();
+    onSignIn,
+    onSignOut
+  } = useGoogleAuth();
 
   const display = {
     Loading: <>Well, gapi is being loaded...</>,
-    SignedIn: <SignedIn user={signedUser} authResponse={authResponse} onSignOut={onGoogleSignOut} />,
-    NotSignedIn: <SimpleButton onClick={onGoogleSignIn} text="Login" />,
+    SignedIn: <SignedIn user={signedUser} authResponse={authResponse} onSignOut={onSignOut} />,
+    NotSignedIn: <SimpleButton onClick={onSignIn} text="Login" />,
     Errored: <>Oh no!</>,
   };
 
@@ -109,11 +109,13 @@ This hook returns an object containing:
 - state : the state of gapi.
 - signedUser : the user signed in, if any.
 - authResponse : the google auth response.
-- onGoogleSignIn : The signin function.
-- onGoogleSignOut : The signout function.
+- onSignIn : The signin function.
+- onSignOut : The signout function.
 
 ## Log
 
+- 2.0.1 : Exorting the main hook interface.
+- 2.0.0 : Main hook renamed to useGoogleAuth.
 - 1.1.3 : Minor readme improvements.
 - 1.1.2 : Using 'On' prefix convention for outgoing events.
 - 1.1.1 : Fixing misc typos in readme.
