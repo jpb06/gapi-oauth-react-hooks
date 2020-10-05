@@ -114,7 +114,8 @@ This hook returns an object containing:
 
 ## Log
 
-- 2.0.1 : Exorting the main hook interface.
+- 2.0.2 : Typo & missing export in index.
+- 2.0.1 : Exporting the main hook interface.
 - 2.0.0 : Main hook renamed to useGoogleAuth.
 - 1.1.3 : Minor readme improvements.
 - 1.1.2 : Using 'On' prefix convention for outgoing events.
