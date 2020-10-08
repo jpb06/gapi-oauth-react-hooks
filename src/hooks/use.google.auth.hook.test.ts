@@ -1,8 +1,9 @@
 import { mocked } from "ts-jest/utils";
 
-import { act, renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react-hooks";
 
 import { gapiGetAuth2Instance } from "../indirection/gapi.lib.indirection";
+import { asPlainObject } from "../logic/conversion.logic";
 import { mockedAuthResponse } from "../tests-related/mocks/data/mocked.auth.response.data";
 import { mockedUser } from "../tests-related/mocks/data/mocked.user.data";
 import { mockGapiCurrentUser } from "../tests-related/mocks/gapi/auth2.current.user.mock";
@@ -75,21 +76,7 @@ describe("useGoogleAuth hook", () => {
     expect(setStateMock).toHaveBeenCalledTimes(1);
     expect(setStateMock).toHaveBeenCalledWith("SignedIn");
     expect(setSignedUserMock).toHaveBeenCalledTimes(1);
-    // not using asymetric matcher because the object contains functions = useless error messages
-    expect(setSignedUserMock.mock.calls[0][0].getId()).toBe(mockedUser.id);
-    expect(setSignedUserMock.mock.calls[0][0].getEmail()).toBe(
-      mockedUser.email
-    );
-    expect(setSignedUserMock.mock.calls[0][0].getFamilyName()).toBe(
-      mockedUser.familyName
-    );
-    expect(setSignedUserMock.mock.calls[0][0].getGivenName()).toBe(
-      mockedUser.givenName
-    );
-    expect(setSignedUserMock.mock.calls[0][0].getImageUrl()).toBe(
-      mockedUser.imageUrl
-    );
-    expect(setSignedUserMock.mock.calls[0][0].getName()).toBe(mockedUser.name);
+    expect(setSignedUserMock).toHaveBeenCalledWith(mockedUser);
   });
 
   it("should report on errors", async () => {
@@ -147,7 +134,9 @@ describe("useGoogleAuth hook", () => {
   it("should sign out", async () => {
     mocked(useGapiLoading).mockReturnValueOnce({
       state: "SignedIn",
-      signedUser: mockGapiCurrentUser(mockedUser).get().getBasicProfile(),
+      signedUser: asPlainObject(
+        mockGapiCurrentUser(mockedUser).get().getBasicProfile()
+      ),
       authResponse: undefined,
       setState: setStateMock,
       setSignedUser: setSignedUserMock,

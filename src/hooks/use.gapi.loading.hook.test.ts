@@ -1,8 +1,12 @@
 import { mocked } from "ts-jest/utils";
 
-import { act, renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react-hooks";
 
-import { gapiAuth2Init, gapiGetAuth2Instance, gapiLoad } from "../indirection/gapi.lib.indirection";
+import {
+  gapiAuth2Init,
+  gapiGetAuth2Instance,
+  gapiLoad,
+} from "../indirection/gapi.lib.indirection";
 import { loadScript, removeScript } from "../logic/resource.loading.logic";
 import { mockedAuthResponse } from "../tests-related/mocks/data/mocked.auth.response.data";
 import { mockedUser } from "../tests-related/mocks/data/mocked.user.data";
@@ -74,16 +78,7 @@ describe("useGapiLoading hook", () => {
 
     expect(result.current.state).toBe("SignedIn");
     expect(result.current.signedUser).not.toBeUndefined();
-    expect(result.current.signedUser?.getId()).toBe(mockedUser.id);
-    expect(result.current.signedUser?.getEmail()).toBe(mockedUser.email);
-    expect(result.current.signedUser?.getFamilyName()).toBe(
-      mockedUser.familyName
-    );
-    expect(result.current.signedUser?.getGivenName()).toBe(
-      mockedUser.givenName
-    );
-    expect(result.current.signedUser?.getName()).toBe(mockedUser.name);
-    expect(result.current.signedUser?.getImageUrl()).toBe(mockedUser.imageUrl);
+    expect(result.current.signedUser).toEqual(mockedUser);
     expect(result.current.authResponse).toMatchObject(mockedAuthResponse);
   });
 
@@ -155,16 +150,7 @@ describe("useGapiLoading hook", () => {
 
     expect(result.current.state).toBe("SignedIn");
     expect(result.current.signedUser).not.toBeUndefined();
-    expect(result.current.signedUser?.getId()).toBe(mockedUser.id);
-    expect(result.current.signedUser?.getEmail()).toBe(mockedUser.email);
-    expect(result.current.signedUser?.getFamilyName()).toBe(
-      mockedUser.familyName
-    );
-    expect(result.current.signedUser?.getGivenName()).toBe(
-      mockedUser.givenName
-    );
-    expect(result.current.signedUser?.getName()).toBe(mockedUser.name);
-    expect(result.current.signedUser?.getImageUrl()).toBe(mockedUser.imageUrl);
+    expect(result.current.signedUser).toEqual(mockedUser);
 
     expect(result.current.authResponse).toMatchObject(mockedAuthResponse);
   });
