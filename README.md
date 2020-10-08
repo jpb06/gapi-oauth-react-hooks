@@ -45,7 +45,7 @@ ReactDOM.render(<Login />, document.getElementById("root"));
 Now, let's use the main hook in our Login component:
 
 ```Typescript
-import { useGoogleAuth } from "gapi-oauth-react-hooks";
+import { useGoogleAuth, UserProfile } from "gapi-oauth-react-hooks";
 
 export const Login = () => {
   const auth = useGoogleAuth();
@@ -62,7 +62,7 @@ export const Login = () => {
 
 interface SignedInProps {
   onSignOut: () => Promise<void>;
-  signedUser?: gapi.auth2.BasicProfile;
+  signedUser?: UserProfile;
   authResponse?: gapi.auth2.AuthResponse;
 }
 
@@ -108,6 +108,7 @@ This hook returns an object containing:
 
 ## Log
 
+- 2.0.4 : Returning a plain object for user profile.
 - 2.0.3 : Yet another readme example improvement.
 - 2.0.2 : Typo & missing export in index.
 - 2.0.1 : Exporting the main hook interface.
