@@ -1,10 +1,12 @@
 import { gapiGetAuth2Instance } from "../indirection/gapi.lib.indirection";
+import { asPlainObject } from "../logic/conversion.logic";
 import { GapiState } from "../types/gapiState";
+import { UserProfile } from "../types/user.profile";
 import { useGapiLoading } from "./use.gapi.loading.hook";
 
 export interface GoogleAuthHookProps {
   state: GapiState;
-  signedUser?: gapi.auth2.BasicProfile;
+  signedUser?: UserProfile;
   authResponse?: gapi.auth2.AuthResponse;
   onSignIn: () => Promise<void>;
   onSignOut: () => Promise<void>;
@@ -28,7 +30,7 @@ export const useGoogleAuth = (): GoogleAuthHookProps => {
       const authInstance = gapiGetAuth2Instance();
       const user = await authInstance.signIn({ prompt: "consent" });
       setAuthResponse(user.getAuthResponse());
-      setSignedUser(user.getBasicProfile());
+      setSignedUser(asPlainObject(user.getBasicProfile()));
       setState("SignedIn");
     } catch (err) {
       console.error("gapi login error:", err);
