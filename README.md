@@ -1,19 +1,22 @@
 # gapi-oauth-react-hooks
 
-![Statements](./badges/badge-statements.svg) ![Branches](./badges/badge-branches.svg) ![Functions](./badges/badge-functions.svg) ![Lines](./badges/badge-lines.svg)
+![Code quality](https://img.shields.io/codefactor/grade/github/jpb06/gapi-oauth-react-hooks?logo=codefactor)
+![Coverage](./badges/coverage-global%20coverage.svg)
+![Github workflow](https://img.shields.io/github/workflow/status/jpb06/gapi-oauth-react-hooks/checks?label=last%20workflow&logo=github-actions)
+![Last commit](https://img.shields.io/github/last-commit/jpb06/gapi-oauth-react-hooks?logo=git)
 
-## Purpose
+## :zap: Purpose
 
-I needed SSO for google users and wasn't quite satisfied with what I found in the react eco system. Perhaps this will be useful for someone else, so here we go.
+I needed SSO for google users and wasn't quite satisfied with what I found in the react eco system. Perhaps this will be useful for someone else, so here we go :rocket:
 
 The package exposes its own declaration files; you won't need to install any @types/\* if you use typescript.
 
-## Requirements
+## :zap: Requirements
 
 - react >= 16.8
 - typescript >= 3.8 (if using ts).
 
-## Installation
+## :zap: Installation
 
 To install, use either yarn or npm:
 
@@ -25,7 +28,7 @@ yarn add gapi-oauth-react-hooks
 npm i gapi-oauth-react-hooks
 ```
 
-## Typical use
+## :zap: Typical use
 
 It's best to setup the config early, perhaps in the index or app file:
 
@@ -75,11 +78,33 @@ const SignedIn: React.FC<SignedInProps> = ({ onSignOut, signedUser, authResponse
 );
 ```
 
-## Api
+## :zap: Api
 
-This package exposes three entities:
+This package exposes two functions as well as two types:
 
-> A static class to hold gapi configuration
+### :bangbang: Types
+
+#### :id: A type defining the states Gapi can be at
+
+This type can have the following values:
+
+- 'Loading' : gapi is not ready yet.
+- 'Errored' : an error occured while loading gapi.
+- 'SignedIn' : gapi is ready and a user is signed in.
+- 'NotSignedIn' : gapi is ready and no user is signed in.
+
+#### :id: An interface defining user data
+
+- id : the id of the user.
+- email : the user email.
+- familyName : the user family name.
+- givenName : the user given name.
+- name : the user name.
+- imageUrl: the user avatar.
+
+### :bangbang: Functions
+
+#### :arrow_right_hook: A static class to hold gapi configuration
 
 This class contains a config function that takes three parameters:
 
@@ -87,16 +112,13 @@ This class contains a config function that takes three parameters:
 - scope.
 - redirectUri.
 
-> An interface defining the states Gapi can be at
+```javascript
+import { GapiConfig } from "gapi-oauth-react-hooks";
 
-This interface has the following members:
+GapiConfig.setup(clientId, scope, redirectUri);
+```
 
-- Loading : gapi is not ready yet.
-- Errored : an error occured while loading gapi.
-- SignedIn : gapi is ready and a user is signed in.
-- NotSignedIn : gapi is ready and no user is signed in.
-
-> A react hook to handle signin and signout using gapi auth2
+#### :arrow_right_hook: A react hook to handle signin and signout using gapi auth2
 
 This hook returns an object containing:
 
@@ -106,24 +128,14 @@ This hook returns an object containing:
 - onSignIn : The signin function.
 - onSignOut : The signout function.
 
-## Log
+```javascript
+import { useGoogleAuth } from "gapi-oauth-react-hooks";
 
-- 2.0.4 : Returning a plain object for user profile.
-- 2.0.3 : Yet another readme example improvement.
-- 2.0.2 : Typo & missing export in index.
-- 2.0.1 : Exporting the main hook interface.
-- 2.0.0 : Main hook renamed to useGoogleAuth.
-- 1.1.3 : Minor readme improvements.
-- 1.1.2 : Using 'On' prefix convention for outgoing events.
-- 1.1.1 : Fixing misc typos in readme.
-- 1.1.0 : Returning auth response from the main hook.
-- 1.0.9 : Fixing a GapiState import.
-- 1.0.8 : Adding tests coverage.
-- 1.0.7 : Improving example in readme.
-- 1.0.6 : Moving type GapiState to its own file.
-- 1.0.5 : Exporting type GapiState.
-- 1.0.4 : Removing the GapiState enum; replacing it with a type to simplify rendering in react components.
-- 1.0.3 : Misc: readme alterations.
-- 1.0.2 : It's es5 we want to publish... Yes.
-- 1.0.1 : Fixing typos.
-- 1.0.0 : Initial publish.
+const {
+  state,
+  signedUser,
+  authResponse,
+  onSignIn,
+  onSignOut,
+} = useGoogleAuth();
+```
