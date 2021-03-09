@@ -80,6 +80,7 @@ describe("useGoogleAuth hook", () => {
   });
 
   it("should report on errors", async () => {
+    console.error = jest.fn();
     mocked(useGapiLoading).mockReturnValueOnce({
       state: "NotSignedIn",
       signedUser: undefined,
@@ -98,6 +99,7 @@ describe("useGoogleAuth hook", () => {
 
     expect(setStateMock).toHaveBeenCalledTimes(1);
     expect(setStateMock).toHaveBeenCalledWith("Errored");
+    expect(console.error).toHaveBeenCalledTimes(1);
   });
 
   it("shouldn't do anything if trying to sign out when user is not signed in", async () => {
