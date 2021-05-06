@@ -1,4 +1,4 @@
-import { mockGapiCurrentUser, MockUser } from "./auth2.current.user.mock";
+import { mockGapiCurrentUser, MockUser } from './auth2.current.user.mock';
 
 export const mockGoogleAuth = (
   isSignedIn: boolean,

@@ -4,10 +4,10 @@ export const loadScript = (
   jsSrc: string,
   callback: () => void
 ) => {
-  const element = document.getElementsByTagName("script")[0];
+  const element = document.getElementsByTagName('script')[0];
   const fjs = element;
   let js = element;
-  js = document.createElement("script");
+  js = document.createElement('script');
   js.id = id;
   js.src = jsSrc;
   if (fjs && fjs.parentNode) {

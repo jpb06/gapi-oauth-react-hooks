@@ -1,4 +1,4 @@
-import { UserProfile } from "../types/user.profile";
+import { UserProfile } from '../types/user.profile';
 
 export const asPlainObject = (
   profile: gapi.auth2.BasicProfile

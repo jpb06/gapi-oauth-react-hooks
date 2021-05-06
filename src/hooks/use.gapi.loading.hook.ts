@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import {
-  gapiAuth2Init,
-  gapiGetAuth2Instance,
-  gapiLoad,
-} from "../indirection/gapi.lib.indirection";
-import { asPlainObject } from "../logic/conversion.logic";
-import { loadScript, removeScript } from "../logic/resource.loading.logic";
-import { GapiState } from "../types/gapiState";
-import { UserProfile } from "../types/user.profile";
-import { useGapiConfig } from "./use.gapi.config.hook";
+import { gapiAuth2Init, gapiGetAuth2Instance, gapiLoad } from '../indirection/gapi.lib.indirection';
+import { asPlainObject } from '../logic/conversion.logic';
+import { loadScript, removeScript } from '../logic/resource.loading.logic';
+import { GapiState } from '../types/gapiState';
+import { UserProfile } from '../types/user.profile';
+import { useGapiConfig } from './use.gapi.config.hook';
 
 interface GapiLoadingHookProps {
   state: GapiState;
@@ -24,7 +20,7 @@ interface GapiLoadingHookProps {
 
 export const useGapiLoading = (): GapiLoadingHookProps => {
   const config = useGapiConfig();
-  const [state, setState] = useState<GapiState>("Loading");
+  const [state, setState] = useState<GapiState>('Loading');
   const [signedUser, setSignedUser] = useState<UserProfile>();
   const [authResponse, setAuthResponse] = useState<gapi.auth2.AuthResponse>();
 
@@ -33,9 +29,9 @@ export const useGapiLoading = (): GapiLoadingHookProps => {
       const currentUser = auth.currentUser.get();
       setAuthResponse(currentUser.getAuthResponse());
       setSignedUser(asPlainObject(currentUser.getBasicProfile()));
-      setState("SignedIn");
+      setState('SignedIn');
     } else {
-      setState("NotSignedIn");
+      setState('NotSignedIn');
     }
   };
 
@@ -43,15 +39,15 @@ export const useGapiLoading = (): GapiLoadingHookProps => {
     let isMounted = true;
     loadScript(
       document,
-      "google-login",
-      "https://apis.google.com/js/api.js",
+      'google-login',
+      'https://apis.google.com/js/api.js',
       () =>
-        gapiLoad("auth2", async () => {
+        gapiLoad('auth2', async () => {
           const GoogleAuth = gapiGetAuth2Instance();
           if (!GoogleAuth) {
             gapiAuth2Init(config).then(
               (res) => setSignedInUser(res),
-              (err) => setState("Errored")
+              (err) => setState('Errored')
             );
           } else {
             setSignedInUser(GoogleAuth);
@@ -61,7 +57,7 @@ export const useGapiLoading = (): GapiLoadingHookProps => {
 
     return () => {
       isMounted = false;
-      removeScript(document, "google-login");
+      removeScript(document, 'google-login');
     };
   }, [config]);
 
