@@ -1,1 +1,1 @@
-export type GapiState = "Loading" | "SignedIn" | "NotSignedIn" | "Errored";
+export type GapiState = 'Loading' | 'SignedIn' | 'NotSignedIn' | 'Errored';
