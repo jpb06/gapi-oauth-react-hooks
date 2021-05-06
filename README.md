@@ -14,7 +14,6 @@ The package exposes its own declaration files; you won't need to install any @ty
 ## :zap: Requirements
 
 - react >= 16.8
-- typescript >= 3.8 (if using ts).
 
 ## :zap: Installation
 
@@ -82,9 +81,9 @@ const SignedIn: React.FC<SignedInProps> = ({ onSignOut, signedUser, authResponse
 
 This package exposes two functions as well as two types:
 
-### :bangbang: Types
+### :diamonds: Types
 
-#### :id: A type defining the states Gapi can be at
+#### :black_circle: A type defining the states Gapi can be at
 
 This type can have the following values:
 
@@ -93,7 +92,7 @@ This type can have the following values:
 - 'SignedIn' : gapi is ready and a user is signed in.
 - 'NotSignedIn' : gapi is ready and no user is signed in.
 
-#### :id: An interface defining user data
+#### :black_circle: An interface defining user data
 
 - id : the id of the user.
 - email : the user email.
@@ -102,9 +101,9 @@ This type can have the following values:
 - name : the user name.
 - imageUrl: the user avatar.
 
-### :bangbang: Functions
+### :diamonds: Functions
 
-#### :arrow_right_hook: A static class to hold gapi configuration
+#### :black_circle: A static class to hold gapi configuration
 
 This class contains a config function that takes three parameters:
 
@@ -113,12 +112,12 @@ This class contains a config function that takes three parameters:
 - redirectUri.
 
 ```javascript
-import { GapiConfig } from "gapi-oauth-react-hooks";
+import { GapiConfig } from 'gapi-oauth-react-hooks';
 
 GapiConfig.setup(clientId, scope, redirectUri);
 ```
 
-#### :arrow_right_hook: A react hook to handle signin and signout using gapi auth2
+#### :black_circle: A react hook to handle signin and signout using gapi auth2
 
 This hook returns an object containing:
 
@@ -129,7 +128,7 @@ This hook returns an object containing:
 - onSignOut : The signout function.
 
 ```javascript
-import { useGoogleAuth } from "gapi-oauth-react-hooks";
+import { useGoogleAuth } from 'gapi-oauth-react-hooks';
 
 const {
   state,
