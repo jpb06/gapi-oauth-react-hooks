@@ -21,15 +21,13 @@ describe('loadScript function', () => {
     const callback = jest.fn();
 
     document.addEventListener('load', () => {
-      setImmediate(() => {
-        expect(mocked(callback)).toHaveBeenCalledTimes(1);
+      expect(mocked(callback)).toHaveBeenCalledTimes(1);
 
-        const scripts = document.getElementsByTagName('script');
-        expect(scripts).toHaveLength(2);
-        expect(
-          scripts.namedItem('mock-script')?.src.endsWith('/mock-script.js')
-        ).toBeTruthy();
-      });
+      const scripts = document.getElementsByTagName('script');
+      expect(scripts).toHaveLength(2);
+      expect(
+        scripts.namedItem('mock-script')?.src.endsWith('/mock-script.js')
+      ).toBeTruthy();
     });
 
     loadScript(document, 'mock-script', './mock-script.js', callback);
@@ -48,15 +46,13 @@ describe('loadScript function', () => {
     const callback = jest.fn();
 
     document.addEventListener('load', () => {
-      setImmediate(() => {
-        expect(mocked(callback)).toHaveBeenCalledTimes(1);
+      expect(mocked(callback)).toHaveBeenCalledTimes(1);
 
-        const scripts = document.getElementsByTagName('script');
-        expect(scripts).toHaveLength(1);
-        expect(
-          scripts.namedItem('mock-script')?.src.endsWith('/mock-script.js')
-        ).toBeTruthy();
-      });
+      const scripts = document.getElementsByTagName('script');
+      expect(scripts).toHaveLength(1);
+      expect(
+        scripts.namedItem('mock-script')?.src.endsWith('/mock-script.js')
+      ).toBeTruthy();
     });
 
     loadScript(document, 'mock-script', './mock-script.js', callback);
