@@ -1,5 +1,6 @@
 # gapi-oauth-react-hooks
 
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/jpb06/gapi-oauth-react-hooks)
 ![Code quality](https://img.shields.io/codefactor/grade/github/jpb06/gapi-oauth-react-hooks?logo=codefactor)
 ![Coverage](./badges/coverage-global%20coverage.svg)
 ![Github workflow](https://img.shields.io/github/workflow/status/jpb06/gapi-oauth-react-hooks/checks?label=last%20workflow&logo=github-actions)
@@ -55,7 +56,7 @@ export const Login = () => {
   const display = {
     Errored: <>Oh no!</>,
     Loading: <>Loading ...</>,
-    NotSignedIn: <SimpleButton onClick={auth.onSignIn} text="Login" />,
+    NotSignedIn: <button onClick={auth.onSignIn} >Login</button>,
     SignedIn: <SignedIn {...auth} />
   };
 
@@ -72,7 +73,7 @@ const SignedIn: React.FC<SignedInProps> = ({ onSignOut, signedUser, authResponse
   <>
     <div>user {JSON.stringify(signedUser)}</div>
     <div>auth response {JSON.stringify(authResponse)}</div>
-    <SimpleButton onClick={onSignOut} text="Logout" />
+    <button onClick={onSignOut} >Logout</button>
   </>
 );
 ```
@@ -130,11 +131,6 @@ This hook returns an object containing:
 ```javascript
 import { useGoogleAuth } from 'gapi-oauth-react-hooks';
 
-const {
-  state,
-  signedUser,
-  authResponse,
-  onSignIn,
-  onSignOut,
-} = useGoogleAuth();
+const { state, signedUser, authResponse, onSignIn, onSignOut } =
+  useGoogleAuth();
 ```
