@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { gapiAuth2Init, gapiGetAuth2Instance, gapiLoad } from '../indirection/gapi.lib.indirection';
+import {
+  gapiAuth2Init,
+  gapiGetAuth2Instance,
+  gapiLoad,
+} from '../indirection/gapi.lib.indirection';
 import { asPlainObject } from '../logic/conversion.logic';
 import { loadScript, removeScript } from '../logic/resource.loading.logic';
 import { GapiState } from '../types/gapiState';

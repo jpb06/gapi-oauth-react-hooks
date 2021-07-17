@@ -23,8 +23,9 @@ export const useGoogleAuth = (): GoogleAuthHookProps => {
   } = useGapiLoading();
 
   const handleSignIn = async () => {
-    if (state !== 'NotSignedIn')
+    if (state !== 'NotSignedIn') {
       throw new Error('gapi is not ready for sign in');
+    }
 
     try {
       const authInstance = gapiGetAuth2Instance();
@@ -39,7 +40,9 @@ export const useGoogleAuth = (): GoogleAuthHookProps => {
   };
 
   const handleSignOut = async () => {
-    if (state !== 'SignedIn') return;
+    if (state !== 'SignedIn') {
+      return;
+    }
 
     const authInstance = gapiGetAuth2Instance();
     await authInstance.signOut();
