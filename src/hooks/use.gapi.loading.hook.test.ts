@@ -2,7 +2,11 @@ import { mocked } from 'ts-jest/utils';
 
 import { renderHook } from '@testing-library/react-hooks';
 
-import { gapiAuth2Init, gapiGetAuth2Instance, gapiLoad } from '../indirection/gapi.lib.indirection';
+import {
+  gapiAuth2Init,
+  gapiGetAuth2Instance,
+  gapiLoad,
+} from '../indirection/gapi.lib.indirection';
 import { loadScript, removeScript } from '../logic/resource.loading.logic';
 import { mockedAuthResponse } from '../tests-related/mocks/data/mocked.auth.response.data';
 import { mockedUser } from '../tests-related/mocks/data/mocked.user.data';
@@ -44,7 +48,7 @@ describe('useGapiLoading hook', () => {
     );
     mocked(gapiLoad).mockImplementationOnce((name, callback) => callback());
     mocked(gapiGetAuth2Instance).mockImplementationOnce(
-      () => (null as unknown) as gapi.auth2.GoogleAuth
+      () => null as unknown as gapi.auth2.GoogleAuth
     );
     mocked(gapiAuth2Init).mockReturnValueOnce(mockGoogleAuth(false));
 
@@ -103,7 +107,7 @@ describe('useGapiLoading hook', () => {
     );
     mocked(gapiLoad).mockImplementationOnce((name, callback) => callback());
     mocked(gapiGetAuth2Instance).mockImplementationOnce(
-      () => (null as unknown) as gapi.auth2.GoogleAuth
+      () => null as unknown as gapi.auth2.GoogleAuth
     );
     const thenFn = (res: any, err: any) => {
       err();
@@ -129,7 +133,7 @@ describe('useGapiLoading hook', () => {
     );
     mocked(gapiLoad).mockImplementationOnce((name, callback) => callback());
     mocked(gapiGetAuth2Instance).mockImplementationOnce(
-      () => (null as unknown) as gapi.auth2.GoogleAuth
+      () => null as unknown as gapi.auth2.GoogleAuth
     );
     const thenFn = (res: any, err: any) => {
       res(mockGoogleAuth(true, mockedUser, mockedAuthResponse));
