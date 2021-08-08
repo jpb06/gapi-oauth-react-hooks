@@ -1,9 +1,10 @@
-name: checks
+name: Integration checks & publish
 on: [push]
 jobs:
   install:
+    name: Install dependencies
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 1
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
@@ -33,17 +34,34 @@ jobs:
       - name: Install dependencies
         run: yarn install --prefer-offline
 
+  tests:
+    needs: install
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
       - name: Tests
         run: yarn test:ci
 
+  generate-coverage-badges:
+    needs: tests
+    if: github.ref == 'refs/heads/master'
+    name: Generating coverage badges
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generating coverage badges
+        uses: jpb06/jest-badges-action@v1.7.0
+
+  publish:
+    needs: install
+    if: github.ref == 'refs/heads/master'
+    name: Publishing package to NPM
+    runs-on: ubuntu-latest
+    steps:
       - name: Bump package version
         uses: jpb06/bump-package@v2.3.0
 
       - name: Building package
         run: yarn build
-
-      - name: Generating coverage badges
-        uses: jpb06/jest-badges-action@v1.7.0
 
       - name: Publish package
         run: |
