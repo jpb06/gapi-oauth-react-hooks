@@ -1,10 +1,11 @@
-name: Integration checks
+name: Coverage badges generation & publish
 on:
   push:
-    branches-ignore:
+    branches:
       - master
 jobs:
-  integration-checks:
+  install:
+    name: Install dependencies
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -38,3 +39,17 @@ jobs:
 
       - name: Tests
         run: yarn test:ci
+
+      - name: Generating coverage badges
+        uses: jpb06/jest-badges-action@v1.7.0
+
+      - name: Bump package version
+        uses: jpb06/bump-package@v2.3.0
+
+      - name: Building package
+        run: yarn build
+
+      - name: Publish package
+        run: |
+          cd dist
+          yarn publish --non-interactive
