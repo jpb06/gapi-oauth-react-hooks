@@ -13,14 +13,14 @@
     "@types/jest": "^26.0.24",
     "@types/jsdom": "^16.2.13",
     "@types/node": "^16.3.3",
-    "@types/react": "^17.0.14",
+    "@types/react": "^17.0.16",
     "copyfiles": "^2.4.1",
     "del-cli": "^4.0.1",
     "jest": "^27.0.6",
-    "jsdom": "^16.6.0",
+    "jsdom": "^16.7.0",
     "react": "^17.0.2",
     "react-test-renderer": "^17.0.2",
-    "ts-jest": "^27.0.3",
+    "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
   },
   "scripts": {
