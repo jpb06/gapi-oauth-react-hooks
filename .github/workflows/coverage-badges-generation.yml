@@ -53,3 +53,5 @@ jobs:
         run: |
           cd dist
           yarn publish --non-interactive
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
