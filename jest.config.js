@@ -1,6 +1,6 @@
 module.exports = {
    preset: "ts-jest",
-   testEnvironment: "jsdom",
+   testEnvironment: "<rootDir>/jest.environment.js",
    coverageReporters: [
       "json-summary",
       "text",

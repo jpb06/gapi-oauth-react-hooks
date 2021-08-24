@@ -4,9 +4,9 @@ export const mockGoogleAuth = (
   isSignedIn: boolean,
   user?: MockUser,
   authResponse?: gapi.auth2.AuthResponse,
-  thenFn: (res: any, err: any) => void = jest.fn(),
+  thenFn: (_: jest.Mock, __: jest.Mock) => void = jest.fn(),
   signOutMockFn = jest.fn(),
-  disconnectMockFn = jest.fn()
+  disconnectMockFn = jest.fn(),
 ): gapi.auth2.GoogleAuth => ({
   signIn: jest
     .fn()

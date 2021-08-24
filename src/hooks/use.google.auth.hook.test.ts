@@ -1,6 +1,5 @@
-import { mocked } from 'ts-jest/utils';
-
 import { renderHook } from '@testing-library/react-hooks';
+import { mocked } from 'ts-jest/utils';
 
 import { gapiGetAuth2Instance } from '../indirection/gapi.lib.indirection';
 import { asPlainObject } from '../logic/conversion.logic';
@@ -52,7 +51,7 @@ describe('useGoogleAuth hook', () => {
     const { result } = renderHook(() => useGoogleAuth());
 
     expect(result.current.onSignIn).rejects.toThrowError(
-      'gapi is not ready for sign in'
+      'gapi is not ready for sign in',
     );
   });
 
@@ -66,7 +65,7 @@ describe('useGoogleAuth hook', () => {
       setAuthResponse: setAuthResponseMock,
     });
     mocked(gapiGetAuth2Instance).mockImplementationOnce(() =>
-      mockGoogleAuth(true, mockedUser, mockedAuthResponse)
+      mockGoogleAuth(true, mockedUser, mockedAuthResponse),
     );
 
     const { result } = renderHook(() => useGoogleAuth());
@@ -120,8 +119,8 @@ describe('useGoogleAuth hook', () => {
         mockedAuthResponse,
         jest.fn(),
         signOutMock,
-        disconnectMock
-      )
+        disconnectMock,
+      ),
     );
 
     const { result } = renderHook(() => useGoogleAuth());
@@ -137,7 +136,7 @@ describe('useGoogleAuth hook', () => {
     mocked(useGapiLoading).mockReturnValueOnce({
       state: 'SignedIn',
       signedUser: asPlainObject(
-        mockGapiCurrentUser(mockedUser).get().getBasicProfile()
+        mockGapiCurrentUser(mockedUser).get().getBasicProfile(),
       ),
       authResponse: undefined,
       setState: setStateMock,
@@ -153,8 +152,8 @@ describe('useGoogleAuth hook', () => {
         mockedAuthResponse,
         jest.fn(),
         signOutMock,
-        disconnectMock
-      )
+        disconnectMock,
+      ),
     );
 
     const { result } = renderHook(() => useGoogleAuth());

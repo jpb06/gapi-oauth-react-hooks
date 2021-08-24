@@ -12,5 +12,5 @@ export const useGapiConfig = (): gapi.auth2.ClientConfig =>
       scope: GapiConfig.Scope,
       redirect_uri: GapiConfig.RedirectUri,
     }),
-    []
+    [],
   );

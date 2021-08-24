@@ -2,7 +2,7 @@ export const loadScript = (
   document: HTMLDocument,
   id: string,
   jsSrc: string,
-  callback: () => void
+  callback: () => void,
 ) => {
   const element = document.getElementsByTagName('script')[0];
   const fjs = element;

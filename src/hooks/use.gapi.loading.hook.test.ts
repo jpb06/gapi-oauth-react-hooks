@@ -1,6 +1,5 @@
-import { mocked } from 'ts-jest/utils';
-
 import { renderHook } from '@testing-library/react-hooks';
+import { mocked } from 'ts-jest/utils';
 
 import {
   gapiAuth2Init,
@@ -44,11 +43,11 @@ describe('useGapiLoading hook', () => {
 
   it('should initialize auth2 if the auth instance does not exist after load', () => {
     mocked(loadScript).mockImplementationOnce((document, id, jsSrc, callback) =>
-      callback()
+      callback(),
     );
     mocked(gapiLoad).mockImplementationOnce((name, callback) => callback());
     mocked(gapiGetAuth2Instance).mockImplementationOnce(
-      () => null as unknown as gapi.auth2.GoogleAuth
+      () => null as unknown as gapi.auth2.GoogleAuth,
     );
     mocked(gapiAuth2Init).mockReturnValueOnce(mockGoogleAuth(false));
 
@@ -64,11 +63,11 @@ describe('useGapiLoading hook', () => {
 
   it('should initialize auth2 and set the current user if he is signed in', () => {
     mocked(loadScript).mockImplementationOnce((document, id, jsSrc, callback) =>
-      callback()
+      callback(),
     );
     mocked(gapiLoad).mockImplementationOnce((name, callback) => callback());
     mocked(gapiGetAuth2Instance).mockImplementationOnce(() =>
-      mockGoogleAuth(true, mockedUser, mockedAuthResponse)
+      mockGoogleAuth(true, mockedUser, mockedAuthResponse),
     );
 
     const { result } = renderHook(() => useGapiLoading());
@@ -84,11 +83,11 @@ describe('useGapiLoading hook', () => {
 
   it('should set the user as not signed in', () => {
     mocked(loadScript).mockImplementationOnce((document, id, jsSrc, callback) =>
-      callback()
+      callback(),
     );
     mocked(gapiLoad).mockImplementationOnce((name, callback) => callback());
     mocked(gapiGetAuth2Instance).mockImplementationOnce(() =>
-      mockGoogleAuth(false)
+      mockGoogleAuth(false),
     );
 
     const { result } = renderHook(() => useGapiLoading());
@@ -103,17 +102,17 @@ describe('useGapiLoading hook', () => {
 
   it('should report on errors', () => {
     mocked(loadScript).mockImplementationOnce((document, id, jsSrc, callback) =>
-      callback()
+      callback(),
     );
     mocked(gapiLoad).mockImplementationOnce((name, callback) => callback());
     mocked(gapiGetAuth2Instance).mockImplementationOnce(
-      () => null as unknown as gapi.auth2.GoogleAuth
+      () => null as unknown as gapi.auth2.GoogleAuth,
     );
-    const thenFn = (res: any, err: any) => {
+    const thenFn = (_: jest.Mock, err: jest.Mock) => {
       err();
     };
     mocked(gapiAuth2Init).mockImplementationOnce(() =>
-      mockGoogleAuth(false, undefined, undefined, thenFn)
+      mockGoogleAuth(false, undefined, undefined, thenFn),
     );
 
     const { result } = renderHook(() => useGapiLoading());
@@ -129,17 +128,17 @@ describe('useGapiLoading hook', () => {
 
   it('should call setSignedInUser on init', () => {
     mocked(loadScript).mockImplementationOnce((document, id, jsSrc, callback) =>
-      callback()
+      callback(),
     );
     mocked(gapiLoad).mockImplementationOnce((name, callback) => callback());
     mocked(gapiGetAuth2Instance).mockImplementationOnce(
-      () => null as unknown as gapi.auth2.GoogleAuth
+      () => null as unknown as gapi.auth2.GoogleAuth,
     );
-    const thenFn = (res: any, err: any) => {
+    const thenFn = (res: jest.Mock, _: jest.Mock) => {
       res(mockGoogleAuth(true, mockedUser, mockedAuthResponse));
     };
     mocked(gapiAuth2Init).mockImplementationOnce(() =>
-      mockGoogleAuth(true, mockedUser, mockedAuthResponse, thenFn)
+      mockGoogleAuth(true, mockedUser, mockedAuthResponse, thenFn),
     );
 
     const { result } = renderHook(() => useGapiLoading());

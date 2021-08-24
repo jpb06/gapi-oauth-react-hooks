@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 
 import { GapiConfig } from '../logic/gapi.config.logic';
 import { useGapiConfig } from './use.gapi.config.hook';

@@ -40,7 +40,6 @@ export const useGapiLoading = (): GapiLoadingHookProps => {
   };
 
   useEffect(() => {
-    let isMounted = true;
     loadScript(
       document,
       'google-login',
@@ -51,16 +50,15 @@ export const useGapiLoading = (): GapiLoadingHookProps => {
           if (!GoogleAuth) {
             gapiAuth2Init(config).then(
               (res) => setSignedInUser(res),
-              (err) => setState('Errored')
+              (_) => setState('Errored'),
             );
           } else {
             setSignedInUser(GoogleAuth);
           }
-        })
+        }),
     );
 
     return () => {
-      isMounted = false;
       removeScript(document, 'google-login');
     };
   }, [config]);
