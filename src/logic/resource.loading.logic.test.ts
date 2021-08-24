@@ -9,6 +9,13 @@ export const delay = async (ms: number) =>
   });
 
 describe('loadScript function', () => {
+  const handleScriptLoaded = jest.fn();
+  const handleScriptLoadError = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should load the script and call the callback function', async () => {
     const dom = await JSDOM.fromFile(
       './src/tests-related/mocks/documents/mock.document.html',
@@ -18,10 +25,9 @@ describe('loadScript function', () => {
       },
     );
     const document = dom.window.document;
-    const callback = jest.fn();
 
     document.addEventListener('load', () => {
-      expect(mocked(callback)).toHaveBeenCalledTimes(1);
+      expect(mocked(handleScriptLoaded)).toHaveBeenCalledTimes(1);
 
       const scripts = document.getElementsByTagName('script');
       expect(scripts).toHaveLength(2);
@@ -30,7 +36,13 @@ describe('loadScript function', () => {
       ).toBeTruthy();
     });
 
-    loadScript(document, 'mock-script', './mock-script.js', callback);
+    loadScript(
+      document,
+      'mock-script',
+      './mock-script.js',
+      handleScriptLoaded,
+      handleScriptLoadError,
+    );
     await delay(100);
   });
 
@@ -43,10 +55,9 @@ describe('loadScript function', () => {
       },
     );
     const document = dom.window.document;
-    const callback = jest.fn();
 
     document.addEventListener('load', () => {
-      expect(mocked(callback)).toHaveBeenCalledTimes(1);
+      expect(mocked(handleScriptLoaded)).toHaveBeenCalledTimes(1);
 
       const scripts = document.getElementsByTagName('script');
       expect(scripts).toHaveLength(1);
@@ -55,7 +66,13 @@ describe('loadScript function', () => {
       ).toBeTruthy();
     });
 
-    loadScript(document, 'mock-script', './mock-script.js', callback);
+    loadScript(
+      document,
+      'mock-script',
+      './mock-script.js',
+      handleScriptLoaded,
+      handleScriptLoadError,
+    );
     await delay(100);
   });
 });
