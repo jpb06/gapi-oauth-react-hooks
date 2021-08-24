@@ -40,22 +40,30 @@ export const useGapiLoading = (): GapiLoadingHookProps => {
   };
 
   useEffect(() => {
+    const handleScriptLoaded = () => {
+      gapiLoad('auth2', async () => {
+        const GoogleAuth = gapiGetAuth2Instance();
+        if (!GoogleAuth) {
+          gapiAuth2Init(config).then(
+            (res) => setSignedInUser(res),
+            (_) => setState('Errored'),
+          );
+        } else {
+          setSignedInUser(GoogleAuth);
+        }
+      });
+    };
+
+    const handleScriptLoadError = () => {
+      setState('Errored');
+    };
+
     loadScript(
       document,
       'google-login',
       'https://apis.google.com/js/api.js',
-      () =>
-        gapiLoad('auth2', async () => {
-          const GoogleAuth = gapiGetAuth2Instance();
-          if (!GoogleAuth) {
-            gapiAuth2Init(config).then(
-              (res) => setSignedInUser(res),
-              (_) => setState('Errored'),
-            );
-          } else {
-            setSignedInUser(GoogleAuth);
-          }
-        }),
+      handleScriptLoaded,
+      handleScriptLoadError,
     );
 
     return () => {

@@ -100,7 +100,7 @@ describe('useGapiLoading hook', () => {
     expect(result.current.authResponse).toBeUndefined();
   });
 
-  it('should report on errors', () => {
+  it('should report on gapi errors', () => {
     mocked(loadScript).mockImplementationOnce((document, id, jsSrc, callback) =>
       callback(),
     );
@@ -120,6 +120,18 @@ describe('useGapiLoading hook', () => {
     expect(mocked(gapiLoad)).toHaveBeenCalledTimes(1);
     expect(mocked(gapiGetAuth2Instance)).toHaveBeenCalledTimes(1);
     expect(mocked(gapiAuth2Init)).toHaveBeenCalledTimes(1);
+
+    expect(result.current.state).toBe('Errored');
+    expect(result.current.signedUser).toBeUndefined();
+    expect(result.current.authResponse).toBeUndefined();
+  });
+
+  it('should set state as errored when script failed to load', () => {
+    mocked(loadScript).mockImplementationOnce(
+      (document, id, jsSrc, callback, err) => err(),
+    );
+
+    const { result } = renderHook(() => useGapiLoading());
 
     expect(result.current.state).toBe('Errored');
     expect(result.current.signedUser).toBeUndefined();

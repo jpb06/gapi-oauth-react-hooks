@@ -2,7 +2,8 @@ export const loadScript = (
   document: HTMLDocument,
   id: string,
   jsSrc: string,
-  callback: () => void,
+  onLoad: () => void,
+  onError: () => void,
 ) => {
   const element = document.getElementsByTagName('script')[0];
   const fjs = element;
@@ -15,7 +16,8 @@ export const loadScript = (
   } else {
     document.head.appendChild(js);
   }
-  js.onload = callback;
+  js.onload = onLoad;
+  js.onerror = onError;
 };
 
 export const removeScript = (document: HTMLDocument, id: string) => {
