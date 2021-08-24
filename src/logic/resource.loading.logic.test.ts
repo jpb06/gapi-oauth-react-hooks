@@ -15,7 +15,7 @@ describe('loadScript function', () => {
       {
         resources: 'usable',
         runScripts: 'dangerously',
-      }
+      },
     );
     const document = dom.window.document;
     const callback = jest.fn();
@@ -26,7 +26,7 @@ describe('loadScript function', () => {
       const scripts = document.getElementsByTagName('script');
       expect(scripts).toHaveLength(2);
       expect(
-        scripts.namedItem('mock-script')?.src.endsWith('/mock-script.js')
+        scripts.namedItem('mock-script')?.src.endsWith('/mock-script.js'),
       ).toBeTruthy();
     });
 
@@ -40,7 +40,7 @@ describe('loadScript function', () => {
       {
         resources: 'usable',
         runScripts: 'dangerously',
-      }
+      },
     );
     const document = dom.window.document;
     const callback = jest.fn();
@@ -51,7 +51,7 @@ describe('loadScript function', () => {
       const scripts = document.getElementsByTagName('script');
       expect(scripts).toHaveLength(1);
       expect(
-        scripts.namedItem('mock-script')?.src.endsWith('/mock-script.js')
+        scripts.namedItem('mock-script')?.src.endsWith('/mock-script.js'),
       ).toBeTruthy();
     });
 
@@ -67,7 +67,7 @@ describe('removeScript function', () => {
       {
         resources: 'usable',
         runScripts: 'dangerously',
-      }
+      },
     );
     const document = dom.window.document;
 
@@ -83,7 +83,7 @@ describe('removeScript function', () => {
       {
         resources: 'usable',
         runScripts: 'dangerously',
-      }
+      },
     );
     const document = dom.window.document;
 

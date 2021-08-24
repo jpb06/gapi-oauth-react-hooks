@@ -1,7 +1,7 @@
 import { UserProfile } from '../types/user.profile';
 
 export const asPlainObject = (
-  profile: gapi.auth2.BasicProfile
+  profile: gapi.auth2.BasicProfile,
 ): UserProfile => ({
   id: profile.getId(),
   email: profile.getEmail(),

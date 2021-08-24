@@ -8,7 +8,7 @@ export interface MockUser {
 }
 export const mockGapiCurrentUser = (
   user?: MockUser,
-  authResponse?: gapi.auth2.AuthResponse
+  authResponse?: gapi.auth2.AuthResponse,
 ): gapi.auth2.CurrentUser => {
   if (!user) {
     return undefined as unknown as gapi.auth2.CurrentUser;
