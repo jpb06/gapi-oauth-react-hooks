@@ -111,7 +111,6 @@ describe('useGoogleAuth hook', () => {
       setAuthResponse: setAuthResponseMock,
     });
     const signOutMock = jest.fn();
-    const disconnectMock = jest.fn();
     mocked(gapiGetAuth2Instance).mockImplementationOnce(() =>
       mockGoogleAuth(
         true,
@@ -119,7 +118,6 @@ describe('useGoogleAuth hook', () => {
         mockedAuthResponse,
         jest.fn(),
         signOutMock,
-        disconnectMock,
       ),
     );
 
@@ -129,7 +127,6 @@ describe('useGoogleAuth hook', () => {
 
     expect(gapiGetAuth2Instance).toHaveBeenCalledTimes(0);
     expect(signOutMock).toHaveBeenCalledTimes(0);
-    expect(disconnectMock).toHaveBeenCalledTimes(0);
   });
 
   it('should sign out', async () => {
@@ -144,7 +141,6 @@ describe('useGoogleAuth hook', () => {
       setAuthResponse: setAuthResponseMock,
     });
     const signOutMock = jest.fn();
-    const disconnectMock = jest.fn();
     mocked(gapiGetAuth2Instance).mockImplementationOnce(() =>
       mockGoogleAuth(
         true,
@@ -152,7 +148,6 @@ describe('useGoogleAuth hook', () => {
         mockedAuthResponse,
         jest.fn(),
         signOutMock,
-        disconnectMock,
       ),
     );
 
@@ -162,7 +157,6 @@ describe('useGoogleAuth hook', () => {
 
     expect(gapiGetAuth2Instance).toHaveBeenCalledTimes(1);
     expect(signOutMock).toHaveBeenCalledTimes(1);
-    expect(disconnectMock).toHaveBeenCalledTimes(1);
 
     expect(setAuthResponseMock).toHaveBeenCalledTimes(1);
     expect(setSignedUserMock).toHaveBeenCalledTimes(1);

@@ -46,10 +46,10 @@ export const useGoogleAuth = (): GoogleAuthHookProps => {
 
     const authInstance = gapiGetAuth2Instance();
     await authInstance.signOut();
-    await authInstance.disconnect();
 
     setAuthResponse(undefined);
     setSignedUser(undefined);
+    setState('NotSignedIn');
   };
 
   return {
