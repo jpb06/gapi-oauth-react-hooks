@@ -1,15 +1,20 @@
-name: Integration checks
 on:
   push:
-    branches-ignore:
+    branches:
       - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+name: Main workflow
 jobs:
-  integration-checks:
+  tests:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -36,5 +41,14 @@ jobs:
       - name: Install dependencies
         run: yarn install --prefer-offline
 
+      - name: Linting
+        run: yarn lint
+
       - name: Tests
         run: yarn test:ci
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

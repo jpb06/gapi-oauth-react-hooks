@@ -10,12 +10,14 @@ plugins:
   - '@typescript-eslint'
   - prettier
   - import
+  - jest
 
 extends:
   - eslint:recommended
   - plugin:@typescript-eslint/recommended
   - plugin:prettier/recommended
   - plugin:import/typescript
+  - plugin:jest/recommended
 
 env:
   jest: true
