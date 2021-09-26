@@ -1,12 +1,8 @@
 import { JSDOM } from 'jsdom';
 import { mocked } from 'ts-jest/utils';
 
+import { delay } from '../tests-related/util/delay.util';
 import { loadScript, removeScript } from './resource.loading.logic';
-
-export const delay = async (ms: number) =>
-  new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
 
 describe('loadScript function', () => {
   const handleScriptLoaded = jest.fn();
