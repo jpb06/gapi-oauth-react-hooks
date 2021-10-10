@@ -19,7 +19,7 @@
     "@typescript-eslint/parser": "^4.33.0",
     "copyfiles": "^2.4.1",
     "del-cli": "^4.0.1",
-    "eslint": "^8.0.0",
+    "eslint": "7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jest": "^25.0.1",
