@@ -1,5 +1,5 @@
+import { mocked } from 'jest-mock';
 import { JSDOM } from 'jsdom';
-import { mocked } from 'ts-jest/utils';
 
 import { delay } from '../tests-related/util/delay.util';
 import { loadScript, removeScript } from './resource.loading.logic';

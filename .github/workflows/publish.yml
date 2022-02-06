@@ -1,14 +1,20 @@
 name: Coverage badges generation & publish
+
 on:
   push:
     branches:
       - master
+
 jobs:
-  install:
-    name: Install dependencies
+  publish:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
       - name: Check out repository code
         uses: actions/checkout@v2
 

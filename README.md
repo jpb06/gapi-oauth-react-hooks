@@ -2,25 +2,29 @@
 
 [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/jpb06/gapi-oauth-react-hooks)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/gapi-oauth-react-hooks)
-![Code quality](https://img.shields.io/codefactor/grade/github/jpb06/gapi-oauth-react-hooks?logo=codefactor)
+![Github workflow](https://img.shields.io/github/workflow/status/jpb06/gapi-oauth-react-hooks/Tests?label=last%20workflow&logo=github-actions)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jpb06_gapi-oauth-react-hooks)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jpb06_gapi-oauth-react-hooks)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=security_rating)](https://sonarcloud.io/dashboard?id=jpb06_gapi-oauth-react-hooks)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=jpb06_gapi-oauth-react-hooks)
-![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/gapi-oauth-react-hooks?label=snyk%20vulnerabilities)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=code_smells)](https://sonarcloud.io/dashboard?id=jpb06_gapi-oauth-react-hooks)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=jpb06_gapi-oauth-react-hooks)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=coverage)](https://sonarcloud.io/dashboard?id=jpb06_gapi-oauth-react-hooks)
-![Coverage](./badges/coverage-global%20coverage.svg)
-![Github workflow](https://img.shields.io/github/workflow/status/jpb06/gapi-oauth-react-hooks/checks?label=last%20workflow&logo=github-actions)
+![Coverage](./badges/coverage-jest%20coverage.svg)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=jpb06_gapi-oauth-react-hooks)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=jpb06_gapi-oauth-react-hooks)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=code_smells)](https://sonarcloud.io/dashboard?id=jpb06_gapi-oauth-react-hooks)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=bugs)](https://sonarcloud.io/summary/new_code?id=jpb06_gapi-oauth-react-hooks)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=jpb06_gapi-oauth-react-hooks)
+![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/gapi-oauth-react-hooks?label=snyk%20vulnerabilities)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=jpb06_gapi-oauth-react-hooks)
 ![Last commit](https://img.shields.io/github/last-commit/jpb06/gapi-oauth-react-hooks?logo=git)
 
-## :zap: Purpose
+## ⚡ Purpose
 
 I needed SSO for google users and wasn't quite satisfied with what I found in the react eco system. Perhaps this will be useful for someone else, so here we go :rocket:
 
 The package exposes its own declaration files; you won't need to install any @types/\* if you use typescript.
 
-## :zap: Installation
+## ⚡ Installation
 
 To install, use either yarn or npm:
 
@@ -32,7 +36,7 @@ yarn add gapi-oauth-react-hooks
 npm i gapi-oauth-react-hooks
 ```
 
-## :zap: Typical use
+## ⚡ Typical use
 
 It's best to setup the config early, perhaps in the index or app file:
 
@@ -82,7 +86,7 @@ const SignedIn: React.FC<SignedInProps> = ({ onSignOut, signedUser, authResponse
 );
 ```
 
-## :zap: Api
+## ⚡ Api
 
 This package exposes two functions as well as two types:
 
