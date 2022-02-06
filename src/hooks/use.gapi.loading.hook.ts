@@ -28,7 +28,7 @@ export const useGapiLoading = (): GapiLoadingHookProps => {
   const [signedUser, setSignedUser] = useState<UserProfile>();
   const [authResponse, setAuthResponse] = useState<gapi.auth2.AuthResponse>();
 
-  const setSignedInUser = (auth: gapi.auth2.GoogleAuth) => {
+  const setSignedInUser = (auth: gapi.auth2.GoogleAuthBase) => {
     if (auth.isSignedIn.get()) {
       const currentUser = auth.currentUser.get();
       setAuthResponse(currentUser.getAuthResponse());
