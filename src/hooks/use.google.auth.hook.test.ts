@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 
 import { gapiGetAuth2Instance } from '../indirection/gapi.lib.indirection';
 import { asPlainObject } from '../logic/conversion.logic';
