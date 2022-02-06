@@ -38,7 +38,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Setting yarn version
-        run: yarn policies set-version 1.22.10
+        run: yarn policies set-version 1.22.17
 
       - name: Install dependencies
         run: yarn install --prefer-offline
@@ -47,10 +47,10 @@ jobs:
         run: yarn test:ci
 
       - name: Generating coverage badges
-        uses: jpb06/jest-badges-action@v1.7.0
+        uses: jpb06/jest-badges-action@v1.8.7
 
       - name: Bump package version
-        uses: jpb06/bump-package@v2.3.0
+        uses: jpb06/bump-package@v2.4.4
 
       - name: Building package
         run: yarn build
