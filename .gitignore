@@ -3,3 +3,5 @@
 /coverage
 
 yarn-error.log
+.yarnrc
+.yarn/releases/*

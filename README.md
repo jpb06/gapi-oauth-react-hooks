@@ -1,6 +1,6 @@
 # gapi-oauth-react-hooks
 
-[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/jpb06/gapi-oauth-react-hooks)
+[![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://github.dev/jpb06/gapi-oauth-react-hooks)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/gapi-oauth-react-hooks)
 ![Github workflow](https://img.shields.io/github/workflow/status/jpb06/gapi-oauth-react-hooks/Tests?label=last%20workflow&logo=github-actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jpb06_gapi-oauth-react-hooks)
