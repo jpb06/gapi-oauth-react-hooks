@@ -50,12 +50,13 @@ jobs:
         uses: jpb06/jest-badges-action@v1.8.7
 
       - name: Bump package version
-        uses: jpb06/bump-package@v2.4.4
+        uses: jpb06/bump-package@v2.5
 
       - name: Building package
         run: yarn build
 
       - name: Publish package
+        if: steps.bumping-version.outputs.bump-performed == 'true'
         run: |
           cd dist
           yarn publish --non-interactive
