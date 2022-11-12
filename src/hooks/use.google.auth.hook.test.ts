@@ -50,7 +50,7 @@ describe('useGoogleAuth hook', () => {
     });
     const { result } = renderHook(() => useGoogleAuth());
 
-    return expect(result.current.onSignIn).rejects.toThrowError(
+    return expect(result.current.onSignIn).rejects.toThrow(
       'gapi is not ready for sign in',
     );
   });
