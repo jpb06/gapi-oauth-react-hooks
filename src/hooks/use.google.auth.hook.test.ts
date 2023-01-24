@@ -1,14 +1,13 @@
 import { renderHook } from '@testing-library/react';
-import { mocked } from 'jest-mock';
 
+import { useGapiLoading } from './use.gapi.loading.hook';
+import { useGoogleAuth } from './use.google.auth.hook';
 import { gapiGetAuth2Instance } from '../indirection/gapi.lib.indirection';
 import { asPlainObject } from '../logic/conversion.logic';
 import { mockedAuthResponse } from '../tests-related/mocks/data/mocked.auth.response.data';
 import { mockedUser } from '../tests-related/mocks/data/mocked.user.data';
 import { mockGapiCurrentUser } from '../tests-related/mocks/gapi/auth2.current.user.mock';
 import { mockGoogleAuth } from '../tests-related/mocks/gapi/auth2.google.auth.mock';
-import { useGapiLoading } from './use.gapi.loading.hook';
-import { useGoogleAuth } from './use.google.auth.hook';
 
 jest.mock('./use.gapi.loading.hook');
 jest.mock('../indirection/gapi.lib.indirection');
@@ -23,7 +22,7 @@ describe('useGoogleAuth hook', () => {
   });
 
   it('should be loading first', () => {
-    mocked(useGapiLoading).mockReturnValueOnce({
+    jest.mocked(useGapiLoading).mockReturnValueOnce({
       state: 'Loading',
       signedUser: undefined,
       authResponse: undefined,
@@ -40,7 +39,7 @@ describe('useGoogleAuth hook', () => {
   });
 
   it('should throw an error if trying to sign in while gapi is loading', async () => {
-    mocked(useGapiLoading).mockReturnValueOnce({
+    jest.mocked(useGapiLoading).mockReturnValueOnce({
       state: 'Loading',
       signedUser: undefined,
       authResponse: undefined,
@@ -56,7 +55,7 @@ describe('useGoogleAuth hook', () => {
   });
 
   it('should sign in', async () => {
-    mocked(useGapiLoading).mockReturnValueOnce({
+    jest.mocked(useGapiLoading).mockReturnValueOnce({
       state: 'NotSignedIn',
       signedUser: undefined,
       authResponse: undefined,
@@ -64,9 +63,11 @@ describe('useGoogleAuth hook', () => {
       setSignedUser: setSignedUserMock,
       setAuthResponse: setAuthResponseMock,
     });
-    mocked(gapiGetAuth2Instance).mockImplementationOnce(() =>
-      mockGoogleAuth(true, mockedUser, mockedAuthResponse),
-    );
+    jest
+      .mocked(gapiGetAuth2Instance)
+      .mockImplementationOnce(() =>
+        mockGoogleAuth(true, mockedUser, mockedAuthResponse),
+      );
 
     const { result } = renderHook(() => useGoogleAuth());
 
@@ -80,7 +81,7 @@ describe('useGoogleAuth hook', () => {
 
   it('should report on errors', async () => {
     console.error = jest.fn();
-    mocked(useGapiLoading).mockReturnValueOnce({
+    jest.mocked(useGapiLoading).mockReturnValueOnce({
       state: 'NotSignedIn',
       signedUser: undefined,
       authResponse: undefined,
@@ -88,7 +89,7 @@ describe('useGoogleAuth hook', () => {
       setSignedUser: setSignedUserMock,
       setAuthResponse: setAuthResponseMock,
     });
-    mocked(gapiGetAuth2Instance).mockImplementationOnce(() => {
+    jest.mocked(gapiGetAuth2Instance).mockImplementationOnce(() => {
       throw new Error('Oh no!');
     });
 
@@ -102,7 +103,7 @@ describe('useGoogleAuth hook', () => {
   });
 
   it("shouldn't do anything if trying to sign out when user is not signed in", async () => {
-    mocked(useGapiLoading).mockReturnValueOnce({
+    jest.mocked(useGapiLoading).mockReturnValueOnce({
       state: 'NotSignedIn',
       signedUser: undefined,
       authResponse: undefined,
@@ -111,15 +112,17 @@ describe('useGoogleAuth hook', () => {
       setAuthResponse: setAuthResponseMock,
     });
     const signOutMock = jest.fn();
-    mocked(gapiGetAuth2Instance).mockImplementationOnce(() =>
-      mockGoogleAuth(
-        true,
-        mockedUser,
-        mockedAuthResponse,
-        jest.fn(),
-        signOutMock,
-      ),
-    );
+    jest
+      .mocked(gapiGetAuth2Instance)
+      .mockImplementationOnce(() =>
+        mockGoogleAuth(
+          true,
+          mockedUser,
+          mockedAuthResponse,
+          jest.fn(),
+          signOutMock,
+        ),
+      );
 
     const { result } = renderHook(() => useGoogleAuth());
 
@@ -130,7 +133,7 @@ describe('useGoogleAuth hook', () => {
   });
 
   it('should sign out', async () => {
-    mocked(useGapiLoading).mockReturnValueOnce({
+    jest.mocked(useGapiLoading).mockReturnValueOnce({
       state: 'SignedIn',
       signedUser: asPlainObject(
         mockGapiCurrentUser(mockedUser).get().getBasicProfile(),
@@ -141,15 +144,17 @@ describe('useGoogleAuth hook', () => {
       setAuthResponse: setAuthResponseMock,
     });
     const signOutMock = jest.fn();
-    mocked(gapiGetAuth2Instance).mockImplementationOnce(() =>
-      mockGoogleAuth(
-        true,
-        mockedUser,
-        mockedAuthResponse,
-        jest.fn(),
-        signOutMock,
-      ),
-    );
+    jest
+      .mocked(gapiGetAuth2Instance)
+      .mockImplementationOnce(() =>
+        mockGoogleAuth(
+          true,
+          mockedUser,
+          mockedAuthResponse,
+          jest.fn(),
+          signOutMock,
+        ),
+      );
 
     const { result } = renderHook(() => useGoogleAuth());
 
