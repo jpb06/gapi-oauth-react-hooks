@@ -2,7 +2,7 @@
 
 [![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://github.dev/jpb06/gapi-oauth-react-hooks)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/gapi-oauth-react-hooks)
-![Github workflow](https://img.shields.io/github/workflow/status/jpb06/gapi-oauth-react-hooks/Tests?label=last%20workflow&logo=github-actions)
+![Github workflow](https://img.shields.io/github/actions/workflow/status/jpb06/gapi-oauth-react-hooks/tests-scan.yml?branch=master&logo=github-actions&label=last%20workflow)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jpb06_gapi-oauth-react-hooks)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jpb06_gapi-oauth-react-hooks)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=security_rating)](https://sonarcloud.io/dashboard?id=jpb06_gapi-oauth-react-hooks)

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { useGapiConfig } from './use.gapi.config.hook';
 import {
   gapiAuth2Init,
   gapiGetAuth2Instance,
@@ -9,7 +10,6 @@ import { asPlainObject } from '../logic/conversion.logic';
 import { loadScript, removeScript } from '../logic/resource.loading.logic';
 import { GapiState } from '../types/gapiState';
 import { UserProfile } from '../types/user.profile';
-import { useGapiConfig } from './use.gapi.config.hook';
 
 interface GapiLoadingHookProps {
   state: GapiState;

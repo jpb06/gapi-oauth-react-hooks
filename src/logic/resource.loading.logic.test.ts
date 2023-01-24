@@ -1,8 +1,7 @@
-import { mocked } from 'jest-mock';
 import { JSDOM } from 'jsdom';
 
-import { delay } from '../tests-related/util/delay.util';
 import { loadScript, removeScript } from './resource.loading.logic';
+import { delay } from '../tests-related/util/delay.util';
 
 describe('loadScript function', () => {
   const handleScriptLoaded = jest.fn();
@@ -23,7 +22,7 @@ describe('loadScript function', () => {
     const document = dom.window.document;
 
     document.addEventListener('load', () => {
-      expect(mocked(handleScriptLoaded)).toHaveBeenCalledTimes(1);
+      expect(jest.mocked(handleScriptLoaded)).toHaveBeenCalledTimes(1);
 
       const scripts = document.getElementsByTagName('script');
       expect(scripts).toHaveLength(2);
@@ -53,7 +52,7 @@ describe('loadScript function', () => {
     const document = dom.window.document;
 
     document.addEventListener('load', () => {
-      expect(mocked(handleScriptLoaded)).toHaveBeenCalledTimes(1);
+      expect(jest.mocked(handleScriptLoaded)).toHaveBeenCalledTimes(1);
 
       const scripts = document.getElementsByTagName('script');
       expect(scripts).toHaveLength(1);

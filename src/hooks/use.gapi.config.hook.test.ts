@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
 
-import { GapiConfig } from '../logic/gapi.config.logic';
 import { useGapiConfig } from './use.gapi.config.hook';
+import { GapiConfig } from '../logic/gapi.config.logic';
 
 describe('useGapiConfig hook', () => {
   it('should return the gapi config', () => {
