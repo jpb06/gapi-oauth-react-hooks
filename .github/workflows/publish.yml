@@ -40,8 +40,6 @@ jobs:
 
       - name: Generating coverage badges
         uses: jpb06/jest-badges-action@v1.9.18
-        with:
-          coverage-summary-path: ./coverage/coverage-final.json
 
       - name: Bump package version
         id: bumping-version
