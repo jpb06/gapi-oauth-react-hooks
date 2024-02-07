@@ -14,7 +14,6 @@
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=code_smells)](https://sonarcloud.io/dashboard?id=jpb06_gapi-oauth-react-hooks)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=bugs)](https://sonarcloud.io/summary/new_code?id=jpb06_gapi-oauth-react-hooks)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=jpb06_gapi-oauth-react-hooks)
-![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/gapi-oauth-react-hooks?label=snyk%20vulnerabilities)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=jpb06_gapi-oauth-react-hooks&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=jpb06_gapi-oauth-react-hooks)
 ![Last commit](https://img.shields.io/github/last-commit/jpb06/gapi-oauth-react-hooks?logo=git)
 

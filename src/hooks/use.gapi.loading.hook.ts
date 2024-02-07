@@ -41,7 +41,7 @@ export const useGapiLoading = (): GapiLoadingHookProps => {
 
   useEffect(() => {
     const handleScriptLoaded = () => {
-      gapiLoad('auth2', async () => {
+      gapiLoad('auth2', () => {
         const GoogleAuth = gapiGetAuth2Instance();
         if (!GoogleAuth) {
           gapiAuth2Init(config).then(
