@@ -2,13 +2,14 @@ import { JSDOM } from 'jsdom';
 
 import { loadScript, removeScript } from './resource.loading.logic';
 import { delay } from '../tests-related/util/delay.util';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 describe('loadScript function', () => {
-  const handleScriptLoaded = jest.fn();
-  const handleScriptLoadError = jest.fn();
+  const handleScriptLoaded = vi.fn();
+  const handleScriptLoadError = vi.fn();
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should load the script and call the callback function', async () => {
@@ -22,7 +23,7 @@ describe('loadScript function', () => {
     const document = dom.window.document;
 
     document.addEventListener('load', () => {
-      expect(jest.mocked(handleScriptLoaded)).toHaveBeenCalledTimes(1);
+      expect(vi.mocked(handleScriptLoaded)).toHaveBeenCalledTimes(1);
 
       const scripts = document.getElementsByTagName('script');
       expect(scripts).toHaveLength(2);
@@ -52,7 +53,7 @@ describe('loadScript function', () => {
     const document = dom.window.document;
 
     document.addEventListener('load', () => {
-      expect(jest.mocked(handleScriptLoaded)).toHaveBeenCalledTimes(1);
+      expect(vi.mocked(handleScriptLoaded)).toHaveBeenCalledTimes(1);
 
       const scripts = document.getElementsByTagName('script');
       expect(scripts).toHaveLength(1);
