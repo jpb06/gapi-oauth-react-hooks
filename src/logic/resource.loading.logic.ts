@@ -1,5 +1,5 @@
 export const loadScript = (
-  document: HTMLDocument,
+  document: Document,
   id: string,
   jsSrc: string,
   onLoad: () => void,
@@ -7,11 +7,10 @@ export const loadScript = (
 ) => {
   const element = document.getElementsByTagName('script')[0];
   const fjs = element;
-  let js = element;
-  js = document.createElement('script');
+  const js = document.createElement('script');
   js.id = id;
   js.src = jsSrc;
-  if (fjs && fjs.parentNode) {
+  if (fjs?.parentNode) {
     fjs.parentNode.insertBefore(js, fjs);
   } else {
     document.head.appendChild(js);
@@ -20,10 +19,10 @@ export const loadScript = (
   js.onerror = onError;
 };
 
-export const removeScript = (document: HTMLDocument, id: string) => {
+export const removeScript = (document: Document, id: string) => {
   const element = document.getElementById(id);
 
-  if (element && element.parentNode) {
+  if (element?.parentNode) {
     element.parentNode.removeChild(element);
   }
 };
