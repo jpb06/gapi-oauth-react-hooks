@@ -1,24 +1,25 @@
 import { mockGapiCurrentUser, MockUser } from './auth2.current.user.mock';
+import { vi, Mock } from 'vitest';
 
 export const mockGoogleAuth = (
   isSignedIn: boolean,
   user?: MockUser,
   authResponse?: gapi.auth2.AuthResponse,
-  thenFn: (_: jest.Mock, __: jest.Mock) => void = jest.fn(),
-  signOutMockFn = jest.fn(),
-  disconnectMockFn = jest.fn(),
+  thenFn: (_: Mock, __: Mock) => void = vi.fn(),
+  signOutMockFn = vi.fn(),
+  disconnectMockFn = vi.fn(),
 ): gapi.auth2.GoogleAuth => ({
-  signIn: jest
+  signIn: vi
     .fn()
     .mockReturnValue(mockGapiCurrentUser(user, authResponse)?.get()),
   signOut: signOutMockFn,
   disconnect: disconnectMockFn,
-  grantOfflineAccess: jest.fn(),
-  attachClickHandler: jest.fn(),
+  grantOfflineAccess: vi.fn(),
+  attachClickHandler: vi.fn(),
   then: thenFn,
   isSignedIn: {
-    get: jest.fn().mockReturnValue(isSignedIn),
-    listen: jest.fn(),
+    get: vi.fn().mockReturnValue(isSignedIn),
+    listen: vi.fn(),
   },
   currentUser: mockGapiCurrentUser(user, authResponse),
 });

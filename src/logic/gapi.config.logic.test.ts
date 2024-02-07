@@ -1,4 +1,5 @@
 import { GapiConfig } from '../logic/gapi.config.logic';
+import { describe, it, expect } from 'vitest';
 
 describe('GapiConfig logic', () => {
   it('should setup properties', () => {

@@ -1,3 +1,5 @@
+import { vi } from 'vitest';
+
 export interface MockUser {
   id: string;
   email: string;
@@ -15,17 +17,17 @@ export const mockGapiCurrentUser = (
   }
 
   return {
-    get: jest.fn().mockImplementation(() => ({
-      getBasicProfile: jest.fn().mockReturnValue({
-        getId: jest.fn().mockReturnValue(user.id),
-        getEmail: jest.fn().mockReturnValue(user.email),
-        getName: jest.fn().mockReturnValue(user.name),
-        getFamilyName: jest.fn().mockReturnValue(user.familyName),
-        getGivenName: jest.fn().mockReturnValue(user.givenName),
-        getImageUrl: jest.fn().mockReturnValue(user.imageUrl),
+    get: vi.fn().mockImplementation(() => ({
+      getBasicProfile: vi.fn().mockReturnValue({
+        getId: vi.fn().mockReturnValue(user.id),
+        getEmail: vi.fn().mockReturnValue(user.email),
+        getName: vi.fn().mockReturnValue(user.name),
+        getFamilyName: vi.fn().mockReturnValue(user.familyName),
+        getGivenName: vi.fn().mockReturnValue(user.givenName),
+        getImageUrl: vi.fn().mockReturnValue(user.imageUrl),
       }),
-      getAuthResponse: jest.fn().mockReturnValue(authResponse),
+      getAuthResponse: vi.fn().mockReturnValue(authResponse),
     })),
-    listen: jest.fn(),
+    listen: vi.fn(),
   };
 };
